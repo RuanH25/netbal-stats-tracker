@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff5c2b">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Netball Stats</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= HOME ================= -->
+<div id="home" class="home-container">
+   <div class="home-wrapper">
+
+  <div class="hero">
+    <div class="badge">PRO TRACKER</div>
+    <h1>NETBALL <span>STATS</span></h1>
+    <p>
+      Real-time indoor netball tracking. Record stats, track substitutions,
+      and generate instant post-game reports.
+    </p>
+
+    <button class="primary-btn" onclick="openNewGame()">
+      + Create New Game
+    </button>
+  </div>
+
+  <div class="recent-section">
+    <h2>⏱ RECENT GAMES</h2>
+    <div id="recentGames" class="games-grid"></div>
+  </div>
+
+</div>
+</div>
+
+<!-- ================= SETUP ================= -->
+<div id="newGameScreen" class="setup-container" style="display:none;">
+
+  <button class="back-btn" onclick="goHome()">← Back to Home</button>
+
+  <h1>GAME SETUP</h1>
+  <p class="subtitle">Configure teams and tracking format.</p>
+
+  <div class="setup-grid">
+
+    <div class="card">
+      <h3>🏆 TEAMS</h3>
+
+      <label>Your Team</label>
+      <input id="teamA" placeholder="Our Team">
+
+      <label>Opponent</label>
+      <input id="teamB" placeholder="Opponent">
+    </div>
+
+    <div class="card">
+      <h3>⏱ FORMAT</h3>
+
+      <label>Game Type</label>
+      <select id="gameType" onchange="updateRoster()">
+        <option value="7">7-a-side</option>
+        <option value="6">6-a-side</option>
+      </select>
+
+      <label>Periods</label>
+      <select id="quarters">
+        <option value="4">Quarters</option>
+        <option value="2">Halves</option>
+      </select>
+
+      <label>Period Duration</label>
+      <select id="gameLength">
+        <option value="5">5 Seconds</option>
+        <option value="900">15 Minutes</option>
+        <option value="600">10 Minutes</option>
+        <option value="480" selected>8 Minutes</option>
+        <option value="420">7 Minutes</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="roster-header">
+  <h3>👥 OUR TEAM ROSTER</h3>
+
+  <select id="quarterSelect" onchange="updateRoster()">
+    <option value="1">Q1</option>
+    <option value="2">Q2</option>
+    <option value="3">Q3</option>
+    <option value="4">Q4</option>
+  </select>
+</div>
+
+<div class="card roster-card">
+  <div id="rosterGrid" class="roster-grid"></div>
+</div>
+
+  <button class="start-btn" onclick="startGame()">Start Match</button>
+
+</div>
+
+<!-- ================= GAME ================= -->
+ <div id="game" style="display:none;">
+  
+  <button class="back-btn game-back-btn" onclick="goHome()">⬅ Back</button>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+
+    <!-- LEFT -->
+    <div class="score-side">
+      <span id="teamAName" class="team-label">OUR TEAM</span>
+      <h1 id="teamAScore">0</h1>
+      <div class="score-buttons placeholder"></div>
+    </div>
+
+    <!-- CENTER -->
+    <div class="center-bar">
+      <div id="period">Q1</div>
+      <div id="timer">10:00</div>
+
+      <div class="controls">
+        <button id="playBtn" onclick="toggleTimer()">▶</button>
+        <button onclick="nextQuarterConfirm()">➡</button>
+        <button onclick="showStatsPage()">⚙</button>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="score-side right">
+      <span id="teamBName" class="team-label">OPPONENT</span>
+      <h1 id="teamBScore">0</h1>
+
+      <div class="score-buttons">
+        <button onclick="addOpponentScore(1)">+</button>
+        <button onclick="addOpponentScore(-1)">−</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ✅ GAME WRAPPER NOW INSIDE -->
+  <div class="game-wrapper">
+    <div class="game-layout">
+
+      <!-- 🔝 ROW 1 -->
+<div class="top-row">
+
+  <div class="left-panel">
+    <h4 class="section-title">SELECT PLAYER</h4>
+    <div id="players" class="player-grid"></div>
+  </div>
+
+ <div class="action-row-grid">
+
+ <div class="action-box shooting-box">
+
+  <div class="shoot-header">
+    <h4 class="section-label blue">SHOOTING</h4>
+    <h2 id="playerTitle">Select Player</h2>
+  </div>
+
+  <div id="shootingActions" class="action-row"></div>
+
+</div>
+
+  <div class="bottom-actions">
+
+    <div class="action-box">
+      <h4 class="section-label green">GOOD</h4>
+      <div class="action-grid good-actions">
+        <button onclick="recordAction('intercept')">Intercept</button>
+        <button onclick="recordAction('pickup')">Pickup</button>
+        <button onclick="recordAction('turnover')">Forced Turnover</button>
+        <button onclick="recordAction('tip')">Tipped Ball</button>
+        <button onclick="recordAction('rebound')">Rebound</button>
+      </div>
+    </div>
+
+    <div class="action-box">
+      <h4 class="section-label red">BAD</h4>
+      <div class="action-grid bad-actions">
+        <button onclick="recordAction('bad pass')">Bad Pass</button>
+        <button onclick="recordAction('dropped')">Dropped</button>
+        <button onclick="recordAction('net abuse')">Net Abuse</button>
+        <button onclick="recordAction('contact')">Contact</button>
+        <button onclick="recordAction('obstruction')">Obstruction</button>
+        <button onclick="recordAction('footwork')">Footwork</button>
+        <button onclick="recordAction('linebreak')">Linebreak</button>
+        <button onclick="recordAction('attitude')">Attitude</button>
+        <button onclick="recordAction('replay')">Replay</button>
+        <button onclick="recordAction('offside')">Offside</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+<div class="events-panel">
+  <h4 class="section-title">RECENT EVENTS</h4>
+  <div id="log" class="event-log"></div>
+</div>
+
+      <!-- 🔥 ROW 3 -->
+      <div class="undo-container">
+        <button id="undoBtn" onclick="undoLastAction()">⟲ Undo</button>
+      </div>
+
+    </div>  
+  </div>
+
+</div>
+
+<!-- ================= POSITION MODAL ================= -->
+<div id="positionModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <h2>END Q<span id="quarterDisplay">1</span> — POSITION SWAP</h2>
+
+<div id="positionSwap"></div>
+
+<div class="modal-actions">
+  <button onclick="closePositionModal()">Cancel</button>
+  <button class="primary" onclick="startNextQuarter()">Start Next</button>
+  <button class="danger" onclick="endGame()">End Game</button>
+</div>
+  </div>
+</div>
+
+<!-- ================= STATS SCREEN ================= -->
+<div id="statsScreen" style="display:none; padding:20px;">
+
+  <button class="back-btn stats-back-btn" onclick="handleStatsBack()">⬅ Back</button>
+
+  <h1 id="statsTitle">Match Stats</h1>
+
+  <div id="statsContent"></div>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+</body>
+</html>
