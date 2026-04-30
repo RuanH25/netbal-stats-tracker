@@ -321,14 +321,15 @@ function setupShooting(pos) {
       container.innerHTML = `
         <button class="btn-goal1" onclick="recordAction('goal1')">+1 Goal</button>
         <button class="btn-goal2" onclick="recordAction('goal2')">+2 Goal</button>
-        <button class="btn-miss" onclick="recordAction('miss')">Miss</button>
+        <button class="btn-miss" onclick="recordAction('miss1')">Miss 1</button>
+        <button class="btn-miss" onclick="recordAction('miss2')">Miss 2</button>
       `;
     }
 
     else if (pos === "L1" || pos === "L2") {
       container.innerHTML = `
         <button class="btn-goal2" onclick="recordAction('goal2')">+2 Goal</button>
-        <button class="btn-miss" onclick="recordAction('miss')">Miss</button>
+        <button class="btn-miss" onclick="recordAction('miss2')">Miss 2</button>
       `;
     }
 
