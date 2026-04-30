@@ -558,7 +558,7 @@ Object.keys(playerStats).forEach(player => {
   let s = playerStats[player];
 
   totalPoints += (s.goals1 * 1) + (s.goals2 * 2);
-  totalAttempts += s.goals1 + s.goals2 + s.miss;
+  totalAttempts += s.goals1 + s.goals2 + (s,miss || 0) + (s.miss2 || 0);
 
   totalDefence +=
     s.intercept +
@@ -639,8 +639,10 @@ let score =
 
 (gameType == 7
   ? (s.goals1 * 1) - (s.miss * 1)
-  : (s.goals1 * 1) + (s.goals2 * 2.75) - (s.miss * 1.5))
-
+  : (s.goals1 * 1) + (s.goals2 * 2.75) 
+ 	- ((s.miss1 || 0) * 1)
+	- ((s.miss2 || 0) * 1.5)
+ 
 + (s.intercept * 5)
 + (s.pickup * 4)
 + (s.turnover * 4)
@@ -857,8 +859,8 @@ html += `
     let goals1 = s.goals1;
     let goals2 = s.goals2;
 
-    let attempts1 = goals1 + s.miss;
-    let attempts2 = goals2;
+    let attempts1 = goals1 + (s.miss1 || 0);
+    let attempts2 = goals2 + (s.miss2 || 0);
 
     let percent1 = attempts1 > 0 ? Math.round((goals1 / attempts1) * 100) : 0;
     let percent2 = attempts2 > 0 ? Math.round((goals2 / attempts2) * 100) : 0;
