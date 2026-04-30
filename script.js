@@ -111,7 +111,7 @@ function startGame() {
 currentGameId = null;
 lastSavedTime = null;
 
-   = parseInt(document.getElementById("gameType").value);
+   gameType = parseInt(document.getElementById("gameType").value);
 
   totalQuarters = parseInt(document.getElementById("quarters").value);
   periodTime = parseInt(document.getElementById("gameLength").value);
