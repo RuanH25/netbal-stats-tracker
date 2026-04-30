@@ -182,7 +182,8 @@ positions.forEach(pos => {
   playerStats[name] = {
     goals1: 0,
     goals2: 0,
-    miss: 0,
+    miss1: 0,
+    miss2: 0,
     intercept: 0,
     pickup: 0,
     turnover: 0,
@@ -368,7 +369,8 @@ highlightSelectedPlayer(selectedPosition);
     playerStats[player].goals2++;
   }
 
-  if (type === "miss") playerStats[player].miss++;
+  if (type === "miss") playerStats[player].miss1++;
+  if (type === "miss2") playerStats[player].miss2++
 
   if (type === "intercept") playerStats[player].intercept++;
   if (type === "pickup") playerStats[player].pickup++;
