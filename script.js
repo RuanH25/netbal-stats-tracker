@@ -151,7 +151,8 @@ players.forEach(name => {
     playerStats[name] = {
       goals1: 0,
       goals2: 0,
-      miss: 0,
+      miss1: 0,
+		miss2: 0,	
       intercept: 0,
       pickup: 0,
       turnover: 0,
@@ -369,8 +370,8 @@ highlightSelectedPlayer(selectedPosition);
     playerStats[player].goals2++;
   }
 
-  if (type === "miss") playerStats[player].miss1++;
-  if (type === "miss2") playerStats[player].miss2++
+  if (type === "miss1") playerStats[player].miss1++;
+  if (type === "miss2") playerStats[player].miss2++;
 
   if (type === "intercept") playerStats[player].intercept++;
   if (type === "pickup") playerStats[player].pickup++;
@@ -558,7 +559,7 @@ Object.keys(playerStats).forEach(player => {
   let s = playerStats[player];
 
   totalPoints += (s.goals1 * 1) + (s.goals2 * 2);
-  totalAttempts += s.goals1 + s.goals2 + (s,miss || 0) + (s.miss2 || 0);
+  totalAttempts += s.goals1 + s.goals2 + (s.miss || 0) + (s.miss2 || 0);
 
   totalDefence +=
     s.intercept +
