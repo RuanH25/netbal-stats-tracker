@@ -63,7 +63,7 @@ function isGameCompleted() {
 
 // ================= ROSTER =================
 function updateRoster() {
-  let type = document.getElementById("gameType").value;
+  let type = document.getElementById("").value;
   let grid = document.getElementById("rosterGrid");
   let q = document.getElementById("quarterSelect").value;
 
@@ -111,7 +111,7 @@ function startGame() {
 currentGameId = null;
 lastSavedTime = null;
 
-  gameType = parseInt(document.getElementById("gameType").value);
+   = parseInt(document.getElementById("").value);
 
   totalQuarters = parseInt(document.getElementById("quarters").value);
   periodTime = parseInt(document.getElementById("gameLength").value);
@@ -639,7 +639,7 @@ let midcourtBonus = isMidcourt
 let score =
 
 (gameType == 7
-  ? (s.goals1 * 1) - (s.miss1 * 1)
+  ? (s.goals1 * 1) - (s.miss1 || 0) * 1)
   : (s.goals1 * 1) + (s.goals2 * 2.75) 
  	- ((s.miss1 || 0) * 1)
 	- ((s.miss2 || 0) * 1.5)
