@@ -63,7 +63,7 @@ function isGameCompleted() {
 
 // ================= ROSTER =================
 function updateRoster() {
-  let type = document.getElementById("").value;
+  let type = document.getElementById("gameType").value;
   let grid = document.getElementById("rosterGrid");
   let q = document.getElementById("quarterSelect").value;
 
@@ -111,7 +111,7 @@ function startGame() {
 currentGameId = null;
 lastSavedTime = null;
 
-   = parseInt(document.getElementById("").value);
+   = parseInt(document.getElementById("gameType").value);
 
   totalQuarters = parseInt(document.getElementById("quarters").value);
   periodTime = parseInt(document.getElementById("gameLength").value);
