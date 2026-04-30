@@ -309,7 +309,7 @@ function setupShooting(pos) {
     if (pos === "GS" || pos === "GA") {
       container.innerHTML = `
         <button class="btn-goal1" onclick="recordAction('goal1')">+1 Goal</button>
-        <button class="btn-miss" onclick="recordAction('miss')">Miss</button>
+        <button class="btn-miss" onclick="recordAction('miss1')">Miss</button>
       `;
     } else {
       container.innerHTML = `<p>No shooting</p>`;
@@ -559,7 +559,7 @@ Object.keys(playerStats).forEach(player => {
   let s = playerStats[player];
 
   totalPoints += (s.goals1 * 1) + (s.goals2 * 2);
-  totalAttempts += s.goals1 + s.goals2 + (s.miss || 0) + (s.miss2 || 0);
+  totalAttempts += s.goals1 + s.goals2 + (s.miss1 || 0) + (s.miss2 || 0);
 
   totalDefence +=
     s.intercept +
@@ -639,7 +639,7 @@ let midcourtBonus = isMidcourt
 let score =
 
 (gameType == 7
-  ? (s.goals1 * 1) - (s.miss * 1)
+  ? (s.goals1 * 1) - (s.miss1 * 1)
   : (s.goals1 * 1) + (s.goals2 * 2.75) 
  	- ((s.miss1 || 0) * 1)
 	- ((s.miss2 || 0) * 1.5)
