@@ -309,7 +309,7 @@ function setupShooting(pos) {
     if (pos === "GS" || pos === "GA") {
       container.innerHTML = `
         <button class="btn-goal1" onclick="recordAction('goal1')">+1 Goal</button>
-        <button class="btn-miss" onclick="recordAction('miss1')">Miss</button>
+        <button class="btn-miss1" onclick="recordAction('miss1')">Miss</button>
       `;
     } else {
       container.innerHTML = `<p>No shooting</p>`;
@@ -323,15 +323,15 @@ function setupShooting(pos) {
       container.innerHTML = `
         <button class="btn-goal1" onclick="recordAction('goal1')">+1 Goal</button>
         <button class="btn-goal2" onclick="recordAction('goal2')">+2 Goal</button>
-        <button class="btn-miss" onclick="recordAction('miss1')">Miss 1</button>
-        <button class="btn-miss" onclick="recordAction('miss2')">Miss 2</button>
+        <button class="btn-miss1" onclick="recordAction('miss1')">Miss 1</button>
+        <button class="btn-miss2" onclick="recordAction('miss2')">Miss 2</button>
       `;
     }
 
     else if (pos === "L1" || pos === "L2") {
       container.innerHTML = `
         <button class="btn-goal2" onclick="recordAction('goal2')">+2 Goal</button>
-        <button class="btn-miss" onclick="recordAction('miss2')">Miss 2</button>
+        <button class="btn-miss2" onclick="recordAction('miss2')">Miss 2</button>
       `;
     }
 
@@ -1262,7 +1262,7 @@ function exportCSV() {
       points,
       s.goals1,
       s.goals2,
-      s.miss,
+      (s.miss1 || 0) + (s.miss2 || 0),
       s.intercept,
       s.pickup,
       s.turnover,
