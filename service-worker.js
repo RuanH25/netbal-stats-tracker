@@ -1,34 +1,20 @@
-const CACHE_NAME = "netball-app-v4";
+const CACHE_NAME = "netball-app-v5";
 
-const urlsToCache = [
-  "/",
-  "/index.html",
-  "/style.css",
-  "/script.js"
-];
+self.addEventListener("install", e => self.skipWaiting());
 
-self.addEventListener("install", event => {
-  self.skipWaiting();
-});
-
-self.addEventListener("activate", event => {
-  event.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(
-        keys.map(key => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
-      );
-    })
+self.addEventListener("activate", e => {
+  e.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(
+        keys.map(k => k !== CACHE_NAME && caches.delete(k))
+      )
+    )
   );
+  self.clients.claim();
 });
 
-self.addEventListener("fetch", event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
+self.addEventListener("fetch", e => {
+  e.respondWith(
+    fetch(e.request).catch(() => caches.match(e.request))
   );
 });
