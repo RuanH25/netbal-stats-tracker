@@ -1138,9 +1138,9 @@ function deleteGame(id) {
 }
 
 // LOAD ON START
-loadRecentGames();
-
-let isRunning = false;
+window.addEventListener("DOMContentLoaded", () => {
+  loadRecentGames();
+});
 
 function toggleTimer() {
   if (isGameCompleted()) return;
