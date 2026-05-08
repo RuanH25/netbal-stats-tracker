@@ -6,6 +6,9 @@ let selectedPosition = null;
 let teamAScore = 0;
 let teamBScore = 0;
 let gameType = 7;
+let teamAColor = "#ff5c2b";
+let teamBColor = "#0ea5e9";
+let matchMode = "Tournament";
 
 // TIMER + GAME SETTINGS
 let totalQuarters = 4;
@@ -57,6 +60,15 @@ function createEmptyStats() {
 }
 
 // ================= NAV =================
+
+function openLogin(){
+  alert("Login screen coming soon")
+}
+
+function openSignup(){
+  alert("Signup screen coming soon")
+}
+
 function goHome() {
 
   // 🔥 only save as active if game screen is visible
@@ -82,6 +94,18 @@ function isGameCompleted() {
   let g = games.find(x => x.id === currentGameId);
 
   return g && g.status === "completed";
+}
+
+function applyTeamColors() {
+  const teamALabel = document.getElementById("teamAName");
+  const teamBLabel = document.getElementById("teamBName");
+  const leftSide = document.querySelector(".score-side:not(.right)");
+  const rightSide = document.querySelector(".score-side.right");
+
+  if (teamALabel) teamALabel.style.color = teamAColor;
+  if (teamBLabel) teamBLabel.style.color = teamBColor;
+  if (leftSide) leftSide.style.borderBottom = `4px solid ${teamAColor}`;
+  if (rightSide) rightSide.style.borderBottom = `4px solid ${teamBColor}`;
 }
 
 window.addEventListener("beforeinstallprompt", (event) => {
@@ -172,6 +196,9 @@ currentGameId = null;
 lastSavedTime = null;
 
   gameType = parseInt(document.getElementById("gameType").value);
+  teamAColor = document.getElementById("teamAColor").value || "#ff5c2b";
+  teamBColor = document.getElementById("teamBColor").value || "#0ea5e9";
+  matchMode = document.getElementById("matchMode").value || "Tournament";
 
   totalQuarters = parseInt(document.getElementById("quarters").value);
   periodTime = parseInt(document.getElementById("gameLength").value);
@@ -276,6 +303,7 @@ positions.forEach(pos => {
   document.getElementById("teamBName").innerText =
     document.getElementById("teamB").value;
 
+  applyTeamColors();
   renderPlayerGrid();
   saveGame("active");
 }
@@ -312,6 +340,78 @@ if (gameType === 7) {
 
     container.appendChild(div);
   });
+
+  refreshSubstitutionOptions();
+}
+
+function refreshSubstitutionOptions() {
+  const outSelect = document.getElementById("subOutSelect");
+  const inSelect = document.getElementById("subInSelect");
+
+  if (!outSelect || !inSelect) return;
+
+  outSelect.innerHTML = "";
+  inSelect.innerHTML = "";
+
+  const activePlayers = Object.values(lineup).filter(name => name && name !== "");
+  const activePositions = Object.keys(lineup);
+
+  activePositions.forEach(pos => {
+    const option = document.createElement("option");
+    option.value = pos;
+    option.textContent = `${pos} — ${lineup[pos]}`;
+    outSelect.appendChild(option);
+  });
+
+  players.forEach(player => {
+    const option = document.createElement("option");
+    option.value = player;
+    option.textContent = player;
+    inSelect.appendChild(option);
+  });
+}
+
+function substitutePlayer() {
+  const outSelect = document.getElementById("subOutSelect");
+  const inSelect = document.getElementById("subInSelect");
+
+  const outPos = outSelect?.value;
+  const newPlayer = inSelect?.value;
+
+  if (!outPos || !newPlayer) {
+    alert("Choose both a player out and a player in.");
+    return;
+  }
+
+  const currentPlayer = lineup[outPos];
+
+  if (currentPlayer === newPlayer) {
+    alert("That player is already in that position.");
+    return;
+  }
+
+  const isAlreadyPlaying = Object.values(lineup).includes(newPlayer);
+  if (isAlreadyPlaying) {
+    alert("That player is already on court. Choose a different player.");
+    return;
+  }
+
+  lineup[outPos] = newPlayer;
+
+  if (!playerPositionsHistory[newPlayer]) {
+    playerPositionsHistory[newPlayer] = [];
+  }
+  if (!playerPositionsHistory[newPlayer].includes(outPos)) {
+    playerPositionsHistory[newPlayer].push(outPos);
+  }
+
+  currentEvents.unshift({
+    text: `${currentPlayer} ↔ ${newPlayer} (${outPos})`
+  });
+
+  renderPlayerGrid();
+  renderEventLog();
+  saveGame("active");
 }
 // ================= SELECT PLAYER =================
 function selectPlayer(pos) {
@@ -1050,6 +1150,9 @@ function saveGame(status = "active") {
     id: currentGameId || (Date.now() + Math.floor(Math.random() * 10000)),
     teamA: teamAName,
     teamB: teamBName,
+    teamAColor,
+    teamBColor,
+    matchMode,
     scoreA: teamAScore,
     scoreB: teamBScore,
     lineup,
@@ -1148,6 +1251,9 @@ function resumeGame(id) {
     };
 
     gameType = g.gameType || 7;
+    teamAColor = g.teamAColor || "#ff5c2b";
+    teamBColor = g.teamBColor || "#0ea5e9";
+    matchMode = g.matchMode || "Tournament";
     totalQuarters = g.totalQuarters || 4;
     periodTime = g.periodTime || 600;
     time = g.timeLeft || periodTime;
@@ -1162,6 +1268,9 @@ function resumeGame(id) {
     document.getElementById("teamA").value =
       g.teamA !== "Untitled Game" ? g.teamA : "";
     document.getElementById("teamB").value = g.teamB || "";
+    document.getElementById("teamAColor").value = teamAColor;
+    document.getElementById("teamBColor").value = teamBColor;
+    document.getElementById("matchMode").value = matchMode;
     document.getElementById("gameType").value = gameType;
     document.getElementById("quarters").value = totalQuarters;
     document.getElementById("gameLength").value = periodTime;
@@ -1190,6 +1299,9 @@ lastSavedTime = null;
     4: {}
   };
   gameType = g.gameType || 7;
+  teamAColor = g.teamAColor || "#ff5c2b";
+  teamBColor = g.teamBColor || "#0ea5e9";
+  matchMode = g.matchMode || "Tournament";
   totalQuarters = g.totalQuarters || 4;
   periodTime = g.periodTime || 600;
   time = g.timeLeft || periodTime;
@@ -1202,6 +1314,7 @@ lastSavedTime = null;
 
   document.getElementById("teamAName").innerText = g.teamA;
   document.getElementById("teamBName").innerText = g.teamB;
+  applyTeamColors();
 
   document.getElementById("teamAScore").innerText = teamAScore;
   document.getElementById("teamBScore").innerText = teamBScore;

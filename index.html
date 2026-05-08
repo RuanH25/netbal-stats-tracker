@@ -15,38 +15,149 @@
 
 <!-- ================= HOME ================= -->
 <div id="home" class="home-container">
-   <div class="home-wrapper">
+  <div class="home-wrapper">
+    <header class="home-nav">
+      <div class="logo">Netball <span>Stats</span></div>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#preview">Preview</a>
+        <a href="#stats">Impact</a>
+      </nav>
+      <div class="auth-actions">
+        <button class="nav-btn" onclick="openLogin()">Login</button>
+        <button class="nav-btn primary-btn" onclick="openSignup()">Sign Up</button>
+      </div>
+    </header>
 
-  <div class="hero">
-    <div class="badge">PRO TRACKER</div>
-    <h1>NETBALL <span>STATS</span></h1>
-    <p>
-      Real-time indoor netball tracking. Record stats, track substitutions,
-      and generate instant post-game reports.
-    </p>
+    <section class="hero-section">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <span class="hero-badge">PRO TRACKER</span>
+          <h1 class="hero-title">Netball analytics built for elite coaches.</h1>
+          <p class="hero-subtitle">Monitor live matches, track player performance, and make smarter substitutions with precision insights in every quarter.</p>
+          <div class="hero-actions">
+            <button class="primary-btn" onclick="openNewGame()">Create Game</button>
+            <button class="secondary-btn" onclick="openLogin()">View Demo</button>
+          </div>
+        </div>
 
-    <div class="hero-actions">
-      <button class="primary-btn" onclick="openNewGame()">
-        + Create New Game
-      </button>
-      <button id="installBtn" class="install-btn" onclick="promptInstall()" style="display:none;">
-        📱 Install App
-      </button>
-    </div>
-    <p class="install-note">This app works in the browser and can also be installed on desktop or mobile for a full app-like experience.</p>
-    <div id="installBanner" class="install-banner" style="display:none;">
-      <p>Install Netball Stats for the best experience!</p>
-      <button onclick="promptInstall()">Install Now</button>
-      <button onclick="dismissInstallBanner()">Dismiss</button>
-    </div>
+        <div class="hero-right">
+          <div class="dashboard-preview">
+            <div class="dashboard-header">
+              <div>
+                <span class="panel-label">Live netball dashboard</span>
+                <h2>Matchday Insights</h2>
+              </div>
+              <span class="status-pill">LIVE</span>
+            </div>
+
+            <div class="score-panel">
+              <div class="score-card blue-card">
+                <span>OUR TEAM</span>
+                <strong>42</strong>
+              </div>
+              <div class="score-card orange-card">
+                <span>OPPONENT</span>
+                <strong>38</strong>
+              </div>
+            </div>
+
+            <div class="chart-panel">
+              <div class="chart-title">Quarter momentum</div>
+              <div class="chart-bar-row">
+                <div class="chart-bar" style="--fill:78%"></div>
+                <div class="chart-bar" style="--fill:63%"></div>
+                <div class="chart-bar" style="--fill:54%"></div>
+                <div class="chart-bar" style="--fill:71%"></div>
+              </div>
+            </div>
+
+            <div class="widget-row">
+              <div class="widget-card">
+                <span>Top shooter</span>
+                <strong>R. Harrison</strong>
+              </div>
+              <div class="widget-card">
+                <span>Active phase</span>
+                <strong>Q3 - 04:22</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="feature-section">
+      <div class="section-header">
+        <div>
+          <span class="section-label">Core features</span>
+          <h2>Premium match control with elite analytics.</h2>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-card glass-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Live Match Tracking</h3>
+          <p>Keep score, monitor pace, and act instantly with live substitutions and event logging.</p>
+        </div>
+        <div class="feature-card glass-card">
+          <div class="feature-icon">📊</div>
+          <h3>Player Analytics</h3>
+          <p>Analyze player movement, shooting efficiency, and position impact across every quarter.</p>
+        </div>
+        <div class="feature-card glass-card">
+          <div class="feature-icon">🧾</div>
+          <h3>Instant Reports</h3>
+          <p>Generate post-game reports with a single click and export clean performance summaries.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="preview" class="preview-section">
+      <div class="preview-grid">
+        <div class="preview-card blue-panel">
+          <span>Game Tracking</span>
+          <h3>Live scoreboard and substitution panel</h3>
+        </div>
+        <div class="preview-card orange-panel">
+          <span>Player Dashboard</span>
+          <h3>Individual performance metrics at a glance</h3>
+        </div>
+        <div class="preview-card glass-panel">
+          <span>Reports</span>
+          <h3>Post-match performance summary</h3>
+        </div>
+      </div>
+    </section>
+
+    <section id="stats" class="stats-section">
+      <div class="stats-grid">
+        <div class="metric-card">
+          <span>Matches Tracked</span>
+          <strong>1,280</strong>
+        </div>
+        <div class="metric-card">
+          <span>Reports Generated</span>
+          <strong>4,520</strong>
+        </div>
+        <div class="metric-card">
+          <span>Players Analyzed</span>
+          <strong>3,190</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="cta-copy">
+        <span class="section-label">Get started</span>
+        <h2>Turn every match into a high-performance advantage.</h2>
+      </div>
+      <div class="cta-actions">
+        <button class="primary-btn" onclick="openNewGame()">Start your first game</button>
+        <button class="secondary-btn" onclick="openSignup()">Create account</button>
+      </div>
+    </section>
   </div>
-
-  <div class="recent-section">
-    <h2>⏱ RECENT GAMES</h2>
-    <div id="recentGames" class="games-grid"></div>
-  </div>
-
-</div>
 </div>
 
 <!-- ================= SETUP ================= -->
@@ -67,10 +178,23 @@
 
       <label>Opponent</label>
       <input id="teamB" placeholder="Opponent">
+
+      <label>Team Color</label>
+      <input type="color" id="teamAColor" value="#ff5c2b">
+
+      <label>Opponent Color</label>
+      <input type="color" id="teamBColor" value="#0ea5e9">
     </div>
 
     <div class="card">
       <h3>⏱ FORMAT</h3>
+
+      <label>Match Mode</label>
+      <select id="matchMode">
+        <option value="Tournament">Tournament</option>
+        <option value="Friendly">Friendly</option>
+        <option value="Practice">Practice</option>
+      </select>
 
       <label>Game Type</label>
       <select id="gameType" onchange="updateRoster()">
@@ -180,17 +304,19 @@
 
 </div>
 
-  <div class="bottom-actions">
+  <div class="action-box substitution-box">
+    <h4 class="section-label orange">SUBSTITUTIONS</h4>
+    <div class="substitution-panel">
+      <label>Player Out</label>
+      <select id="subOutSelect"></select>
 
-    <div class="action-box">
-      <h4 class="section-label green">GOOD</h4>
-      <div class="action-grid good-actions">
-        <button onclick="recordAction('intercept')">Intercept</button>
-        <button onclick="recordAction('pickup')">Pickup</button>
-        <button onclick="recordAction('turnover')">Forced Turnover</button>
-        <button onclick="recordAction('tip')">Tipped Ball</button>
-        <button onclick="recordAction('rebound')">Rebound</button>
-      </div>
+      <label>Player In</label>
+      <select id="subInSelect"></select>
+
+      <button class="secondary-btn" onclick="substitutePlayer()">Substitute</button>
+    </div>
+  </div>
+
     </div>
 
     <div class="action-box">
