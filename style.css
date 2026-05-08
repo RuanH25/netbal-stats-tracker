@@ -108,6 +108,52 @@ button:active {
   margin: 15px auto 35px;
 }
 
+.hero-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.install-note {
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  max-width: 640px;
+  margin: 0 auto 20px;
+  line-height: 1.6;
+}
+
+.install-banner {
+  background: linear-gradient(135deg, #ff5c2b, #ff784f);
+  color: white;
+  padding: 15px;
+  border-radius: 12px;
+  margin: 20px auto;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(255,92,43,0.3);
+}
+
+.install-banner p {
+  margin: 0 0 10px;
+  font-weight: bold;
+}
+
+.install-banner button {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 8px 16px;
+  margin: 0 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.install-banner button:hover {
+  background: rgba(255,255,255,0.3);
+}
+
 /* CTA BUTTON */
 .primary-btn {
   background: #ff5c2b;
@@ -121,6 +167,21 @@ button:active {
 .primary-btn:hover {
   transform: scale(1.07);
   box-shadow: 0 18px 45px rgba(255,92,43,0.7);
+}
+
+.install-btn {
+  margin-top: 18px;
+  padding: 12px 24px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: white;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.install-btn:hover {
+  background: rgba(255,92,43,0.18);
+  transform: scale(1.03);
 }
 
 /* ===== RECENT ===== */
@@ -1637,6 +1698,22 @@ html {
 
   #timer {
     font-size: 1.5rem;
+  }
+
+  .top-row {
+    grid-template-columns: 1fr;
+  }
+
+  .bottom-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .left-panel {
+    min-height: auto;
+  }
+
+  .action-box {
+    padding: 14px;
   }
 }
 .recent-games {

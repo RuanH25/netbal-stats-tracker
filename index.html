@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ff5c2b">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>Netball Stats</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -22,9 +25,20 @@
       and generate instant post-game reports.
     </p>
 
-    <button class="primary-btn" onclick="openNewGame()">
-      + Create New Game
-    </button>
+    <div class="hero-actions">
+      <button class="primary-btn" onclick="openNewGame()">
+        + Create New Game
+      </button>
+      <button id="installBtn" class="install-btn" onclick="promptInstall()" style="display:none;">
+        📱 Install App
+      </button>
+    </div>
+    <p class="install-note">This app works in the browser and can also be installed on desktop or mobile for a full app-like experience.</p>
+    <div id="installBanner" class="install-banner" style="display:none;">
+      <p>Install Netball Stats for the best experience!</p>
+      <button onclick="promptInstall()">Install Now</button>
+      <button onclick="dismissInstallBanner()">Dismiss</button>
+    </div>
   </div>
 
   <div class="recent-section">
@@ -242,10 +256,22 @@
 
 </div>
 
-<script src="script.js?v=4"></script>
+<script src="script.js"></script>
 <script>
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
+  navigator.serviceWorker.register("service-worker.js").then(registration => {
+    registration.addEventListener("updatefound", () => {
+      const newWorker = registration.installing;
+      newWorker.addEventListener("statechange", () => {
+        if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+          // New version available
+          if (confirm("A new version of Netball Stats is available. Reload to update?")) {
+            window.location.reload();
+          }
+        }
+      });
+    });
+  });
 }
 </script>
 </body>

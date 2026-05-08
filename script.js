@@ -31,7 +31,30 @@ let currentGameId = null;
 let playerPositionsHistory = {};
 let currentEvents = [];
 let lastSavedTime = null;
+let deferredPrompt = null;
 
+function createEmptyStats() {
+  return {
+    goals1: 0,
+    goals2: 0,
+    miss: 0,
+    intercept: 0,
+    pickup: 0,
+    turnover: 0,
+    tip: 0,
+    rebound: 0,
+    badPass: 0,
+    dropped: 0,
+    netAbuse: 0,
+    contact: 0,
+    obstruction: 0,
+    footwork: 0,
+    linebreak: 0,
+    attitude: 0,
+    replay: 0,
+    offside: 0
+  };
+}
 
 // ================= NAV =================
 function goHome() {
@@ -60,6 +83,43 @@ function isGameCompleted() {
 
   return g && g.status === "completed";
 }
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  deferredPrompt = event;
+
+  // Show install button if not already installed
+  if (!window.matchMedia('(display-mode: standalone)').matches) {
+    const installBtn = document.getElementById("installBtn");
+    if (installBtn) {
+      installBtn.style.display = "inline-flex";
+      installBtn.textContent = "Install App";
+    }
+  }
+});
+
+function dismissInstallBanner() {
+  const installBanner = document.getElementById("installBanner");
+  if (installBanner) installBanner.style.display = "none";
+  localStorage.setItem("installBannerDismissed", "true");
+}
+
+// Check if app is already installed
+window.addEventListener("load", () => {
+  if (window.matchMedia('(display-mode: standalone)').matches) {
+    const installBtn = document.getElementById("installBtn");
+    const installBanner = document.getElementById("installBanner");
+    if (installBtn) installBtn.style.display = "none";
+    if (installBanner) installBanner.style.display = "none";
+  } else {
+    // Show banner if not installed and not dismissed before
+    const dismissed = localStorage.getItem("installBannerDismissed");
+    if (!dismissed && deferredPrompt) {
+      const installBanner = document.getElementById("installBanner");
+      if (installBanner) installBanner.style.display = "block";
+    }
+  }
+});
 
 // ================= ROSTER =================
 function updateRoster() {
@@ -342,13 +402,20 @@ function setupShooting(pos) {
 function recordAction(type) {
   if (isGameCompleted()) return;
   if (!selectedPosition) {
-  alert("Select a player first");
-  return;
-}
-
-highlightSelectedPlayer(selectedPosition);
+    alert("Select a player first");
+    return;
+  }
 
   let player = lineup[selectedPosition];
+
+  if (!player || player.trim() === "" || player === selectedPosition) {
+    alert("Please select a valid player before recording stats.");
+    return;
+  }
+
+  if (!playerStats[player]) {
+    playerStats[player] = createEmptyStats();
+  }
 
   actionHistory.push({
     type,
@@ -356,6 +423,8 @@ highlightSelectedPlayer(selectedPosition);
     prevScore: teamAScore,
     prevStats: JSON.parse(JSON.stringify(playerStats[player]))
   });
+
+  highlightSelectedPlayer(selectedPosition);
 
   if (type === "goal1") {
     teamAScore++;
@@ -962,55 +1031,60 @@ function closePositionModal() {
 
 // ================= SAVE SYSTEM =================
 function saveGame(status = "active") {
-
   let games = JSON.parse(localStorage.getItem("games")) || [];
   let existing = games.find(g => g.id === currentGameId);
 
-if (existing && existing.status === "completed") {
-  status = "completed";
-}
+  if (existing && existing.status === "completed") {
+    status = "completed";
+  }
 
-let gameData = {
-  id: currentGameId || (Date.now() + Math.floor(Math.random() * 10000)),
-  teamA: document.getElementById("teamAName").innerText,
-  teamB: document.getElementById("teamBName").innerText,
-  scoreA: teamAScore,
-  scoreB: teamBScore,
-  lineup,
-  players,
-  stats: playerStats,
-  quarter: currentQuarter,
-  status,
-  events: currentEvents,
-  gameType: gameType,
+  let teamAName = document.getElementById("teamAName").innerText;
+  let teamBName = document.getElementById("teamBName").innerText;
 
-  totalQuarters: totalQuarters,
-  periodTime: periodTime,
-  timeLeft: time,
-  positionsHistory: playerPositionsHistory
-};
+  if (document.getElementById("newGameScreen").style.display === "block") {
+    teamAName = document.getElementById("teamA").value.trim() || "Untitled Game";
+    teamBName = document.getElementById("teamB").value.trim() || "";
+  }
 
- if (!currentGameId) {
+  let gameData = {
+    id: currentGameId || (Date.now() + Math.floor(Math.random() * 10000)),
+    teamA: teamAName,
+    teamB: teamBName,
+    scoreA: teamAScore,
+    scoreB: teamBScore,
+    lineup,
+    players,
+    stats: playerStats,
+    quarter: currentQuarter,
+    status,
+    events: currentEvents,
+    gameType,
+    totalQuarters,
+    periodTime,
+    timeLeft: time,
+    quarterLineups,
+    positionsHistory: playerPositionsHistory
+  };
+
+  if (!currentGameId) {
     currentGameId = gameData.id;
     games.push(gameData);
-} else {
+  } else {
     let found = false;
-
     games = games.map(g => {
-        if (g.id === currentGameId) {
-            found = true;
-            return gameData;
-        }
-        return g;
+      if (g.id === currentGameId) {
+        found = true;
+        return gameData;
+      }
+      return g;
     });
 
     if (!found) {
-        games.push(gameData);
+      games.push(gameData);
     }
-}
+  }
 
   games = games.slice(-50);
-
   localStorage.setItem("games", JSON.stringify(games));
 }
 
@@ -1064,28 +1138,37 @@ function resumeGame(id) {
 
   // 🔥 HANDLE DRAFT
   if (g.status === "draft") {
-
     currentGameId = g.id;
 
-    // show setup screen
+    quarterLineups = g.quarterLineups || {
+      1: {},
+      2: {},
+      3: {},
+      4: {}
+    };
+
+    gameType = g.gameType || 7;
+    totalQuarters = g.totalQuarters || 4;
+    periodTime = g.periodTime || 600;
+    time = g.timeLeft || periodTime;
+    currentQuarter = g.quarter || 1;
+    playerPositionsHistory = g.positionsHistory || {};
+
     document.getElementById("home").style.display = "none";
     document.getElementById("game").style.display = "none";
     document.getElementById("statsScreen").style.display = "none";
     document.getElementById("newGameScreen").style.display = "block";
 
-    // restore team names
     document.getElementById("teamA").value =
       g.teamA !== "Untitled Game" ? g.teamA : "";
-
     document.getElementById("teamB").value = g.teamB || "";
-
-    document.getElementById("period").innerText =
-  (totalQuarters === 2 ? "Half " : "Q") + currentQuarter;
-
-  time = periodTime;
-  updateTimer();
+    document.getElementById("gameType").value = gameType;
+    document.getElementById("quarters").value = totalQuarters;
+    document.getElementById("gameLength").value = periodTime;
+    document.getElementById("quarterSelect").value = 1;
 
     updateRoster();
+    updateTimer();
 
     return;
   }
@@ -1100,12 +1183,18 @@ lastSavedTime = null;
   lineup = g.lineup;
   players = g.players;
   playerStats = g.stats;
+  quarterLineups = g.quarterLineups || {
+    1: {},
+    2: {},
+    3: {},
+    4: {}
+  };
   gameType = g.gameType || 7;
   totalQuarters = g.totalQuarters || 4;
-periodTime = g.periodTime || 600;
-time = g.timeLeft || periodTime;
-playerPositionsHistory = g.positionsHistory || {};
-updateTimer();
+  periodTime = g.periodTime || 600;
+  time = g.timeLeft || periodTime;
+  playerPositionsHistory = g.positionsHistory || {};
+  updateTimer();
 
   teamAScore = g.scoreA;
   teamBScore = g.scoreB;
@@ -1290,13 +1379,20 @@ link.download = `${teamA}_vs_${teamB}_${date}.csv`;
 
 function openNewGame() {
 
- quarterLineups = {
-  1: {},
-  2: {},
-  3: {},
-  4: {}
-}; 
-  
+  quarterLineups = {
+    1: {},
+    2: {},
+    3: {},
+    4: {}
+  };
+
+  document.getElementById("gameType").value = 7;
+  document.getElementById("quarters").value = 4;
+  document.getElementById("gameLength").value = 600;
+  document.getElementById("quarterSelect").value = 1;
+  document.getElementById("teamA").value = "";
+  document.getElementById("teamB").value = "";
+
   createDraftGame();
 
   // hide screens
@@ -1332,6 +1428,12 @@ function createDraftGame() {
     players: [],
     stats: {},
     quarter: 1,
+    gameType,
+    totalQuarters,
+    periodTime,
+    timeLeft: time,
+    quarterLineups,
+    positionsHistory: playerPositionsHistory,
     status: "draft"
   };
 
