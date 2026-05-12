@@ -1,4 +1,4 @@
-const CACHE_NAME = "netball-app-v6";
+const CACHE_NAME = "netball-app-v7";
 
 const urlsToCache = [
   ".",
