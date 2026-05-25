@@ -61,24 +61,27 @@ function createEmptyStats() {
 
 // ================= NAV =================
 
-function openLogin(){
-  alert("Login screen coming soon")
-}
+function showToast(){
+  const toats = document.getElementById("toast");
 
-function openSignup(){
-  alert("Signup screen coming soon")
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3500);
 }
 
 function goHome() {
 
-  // 🔥 only save as active if game screen is visible
+
   if (document.getElementById("game").style.display === "block") {
     saveGame("active");
   }
 
   document.getElementById("game").style.display = "none";
   document.getElementById("newGameScreen").style.display = "none";
-  document.getElementById("statsScreen").style.display = "none"; // 🔥 ADD THIS
+  document.getElementById("statsScreen").style.display = "none"; 
+  document.getElementById("demoScreen").style.display = "none";
 
   document.getElementById("home").style.display = "block";
 
@@ -87,6 +90,30 @@ function goHome() {
 
   pauseTimer();
   isRunning = false;
+}
+
+function openDemo() {
+
+  // Hide all screens
+  document.getElementById("home").style.display = "none";
+  document.getElementById("newGameScreen").style.display = "none";
+  document.getElementById("statsScreen").style.display = "none";
+  document.getElementById("game").style.display = "none";
+
+  // Show demo
+  document.getElementById("demoScreen").style.display = "block";
+
+  // 🔥 WAIT for browser render
+  requestAnimationFrame(() => {
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto"
+    });
+
+  });
+
 }
 
 function isGameCompleted() {
