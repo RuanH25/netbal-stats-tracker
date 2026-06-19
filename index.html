@@ -1,0 +1,708 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff5c2b">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+<title>Netball Stats</title>
+<link rel="stylesheet" href="css/website.css">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="js/website.js" defer></script>
+</head>
+<body class="website-page">
+<div id="home" class="home-container">
+
+<header class="home-nav">
+
+  <a href="#home" class="logo">
+
+    <div class="logo-icon">
+      <span class="orbit orbit-1"></span>
+      <span class="orbit orbit-2"></span>
+      <span class="orbit orbit-3"></span>
+      <span class="logo-center"></span>
+    </div>
+
+    <div class="logo-text">
+      <span class="logo-main">
+        Netball <span>Stats</span>
+      </span>
+
+      <span class="logo-pro">
+        ── PRO ──
+      </span>
+    </div>
+
+  </a>
+
+  <nav class="nav-links">
+    <a href="#features" id="nav-features">Features</a>
+    <a href="#preview" id="nav-preview">Preview</a>
+    <a href="#stats" id="nav-impact">Impact</a>
+  </nav>
+
+  <div class="auth-actions">
+    <button class="nav-btn" onclick="showToast()">Login</button>
+    <button class="nav-btn primary-btn" onclick="showToast()">Sign Up</button>
+  </div>
+
+</header>
+     
+
+  <div class="home-wrapper">
+
+    <section class="hero-section">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <span class="hero-badge">PRO TRACKER</span>
+          <h1 class="hero-title">Elite Netball Analytics Built For Winning Teams.</h1>
+          <p class="hero-subtitle">Monitor live matches, track player performance, and make smarter substitutions with precision insights in every quarter.</p>
+          <div class="hero-actions">
+            <button class="primary-btn" onclick="openNewGame()">Start Tracking</button>
+            <button class="secondary-btn" onclick="openDemo()">Watch Demo</button>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-cards">
+
+  <!-- LIVE MATCH -->
+
+  <div class="hero-card card-live">
+
+    <span class="card-label">
+      LIVE MATCH
+    </span>
+
+    <span class="live-pill">
+      LIVE
+    </span>
+
+    <div class="score-row">
+
+      <div>
+        <span>Our Team</span>
+        <strong id="teamScore">42</strong>
+      </div>
+
+      <div>
+        <span>Opponent</span>
+        <strong id="opponentScore">38</strong>
+      </div>
+
+    </div>
+
+    <div class="match-info">
+      Quarter 3 • 04:22
+    </div>
+
+  </div>
+
+  <div class="hero-card card-tracked">
+
+  <span class="card-label">
+    MATCHES
+  </span>
+
+  <strong>1,280+</strong>
+
+  <p>Tracked</p>
+
+</div>
+  <!-- ACCURACY -->
+
+  <div class="hero-card card-accuracy">
+
+    <span class="card-label">
+      ACCURACY
+    </span>
+
+    <strong>92%</strong>
+
+    <p>Elite Performance</p>
+
+  </div>
+
+  <!-- MOMENTUM -->
+
+  <div class="hero-card card-momentum">
+
+    <span class="card-label">
+      MOMENTUM
+    </span>
+
+    <strong>+18%</strong>
+
+    <p>Trending Up</p>
+
+  </div>
+
+  <!-- SHOOTER -->
+
+  <div class="hero-card card-shooter">
+
+    <span class="card-label">
+      TOP SHOOTER
+    </span>
+
+    <strong>R. Harrison</strong>
+
+    <p>14 Goals</p>
+
+  </div>
+
+</div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="feature-section">
+      <div class="section-header">
+        <div class="section-copy">
+          <span class="section-label">Core features</span>
+          <h2 class="features-title">
+            Premium Match Control
+            <br>
+            With <span>Elite Analytics</span>
+            </h2>
+
+          <p class="features-subtitle">
+            Powerful tools designed for coaches,
+            analysts and teams who demand precision,
+            clarity and performance insights.
+          </p>
+        </div>
+      </div>
+      <div class="feature-showcase">
+        <div class="feature-grid-layout">
+          <article class="feature-panel feature-panel-large">
+            <div class="feature-icon icon-blue">
+              <svg viewBox="0 0 48 48" aria-hidden="true">
+                <path d="M8 36V24h6v12H8Zm13 0V17h6v19h-6Zm13 0V11h6v25h-6Z"></path>
+                <path d="m8 18 11-10 8 7 13-13"></path>
+                <path d="M35 2h5v5"></path>
+              </svg>
+            </div>
+            <div class="feature-copy">
+              <h3>Live Match Intelligence</h3>
+              <p>Track momentum swings, scoring runs, substitutions, and live player performance during every phase of the game.</p>
+            </div>
+            <span class="feature-live"><span></span>LIVE</span>
+            <div class="feature-chart" aria-hidden="true">
+              <svg viewBox="0 0 360 130" preserveAspectRatio="none">
+                <path class="chart-grid" d="M0 95H360M0 70H360M0 45H360M0 20H360"></path>
+                <path class="chart-line" d="M0 96 L70 96 C90 96 88 85 110 86 C135 87 130 105 155 98 C184 90 178 48 210 42 C240 37 235 78 265 75 C300 72 300 15 360 12"></path>
+              </svg>
+            </div>
+            <div class="feature-stats">
+              <div><strong>248</strong><span>Live Events</span></div>
+              <div><strong>92%</strong><span>Accuracy</span></div>
+              <div><strong>18%</strong><span>Momentum</span></div>
+            </div>
+          </article>
+
+          <article class="feature-panel accent-orange">
+            <div class="feature-icon icon-orange">
+              <svg viewBox="0 0 48 48" aria-hidden="true">
+                <circle cx="24" cy="15" r="7"></circle>
+                <path d="M10 39c2-10 8-15 14-15s12 5 14 15H10Z"></path>
+              </svg>
+            </div>
+            <h3>Player Analytics</h3>
+            <p>Detailed player statistics, heatmaps, and performance trends that reveal the real impact on court.</p>
+            <a href="#" onclick="openFeatureModal('analytics')">
+              Explore <span>→</span>
+            </a>
+          </article>
+
+          <article class="feature-panel accent-purple">
+            <div class="feature-icon icon-purple">
+              <svg viewBox="0 0 48 48" aria-hidden="true">
+                <path d="M14 7h15l6 6v28H14V7Z"></path>
+                <path d="M28 7v8h7M20 23h12M20 30h12"></path>
+              </svg>
+            </div>
+            <h3>Smart Reports</h3>
+            <p>Automated reports and visual summaries that help you review, reflect, and improve faster.</p>
+            <a href="#" onclick="openFeatureModal('reports')">
+              Explore <span>→</span>
+            </a>
+          </article>
+
+          <article class="feature-panel accent-blue">
+            <div class="feature-icon icon-blue">
+              <svg viewBox="0 0 48 48" aria-hidden="true">
+                <path d="M24 5 38 10v11c0 10-6 18-14 22C16 39 10 31 10 21V10l14-5Z"></path>
+                <path d="m18 24 4 4 9-10"></path>
+              </svg>
+            </div>
+            <h3>Secure &amp; Reliable</h3>
+            <p>Your data is protected with enterprise-grade security and reliable cloud infrastructure.</p>
+            <a href="#" onclick="openFeatureModal('security')">
+              Explore <span>→</span>
+            </a>
+          </article>
+        </div>
+
+        <div class="future-section">
+          <div class="future-copy">
+            <span class="section-label">IN DEVELOPMENT</span>
+            <h2>Next Generation<br><span>Match Intelligence.</span></h2>
+            <p>We’re building the future of netball analytics with smart, connected tools that empower every team.</p>
+            <button class="secondary-btn" onclick="openRoadmap()">
+              View Roadmap <span>→</span>
+            </button>
+          </div>
+
+          <div class="future-flow">
+            <article class="future-step step-blue">
+              <span class="step-number">01</span>
+              <div class="step-orb">
+                <svg viewBox="0 0 48 48" aria-hidden="true">
+                  <path d="M18 9c-5 0-8 4-8 9v12c0 5 3 9 8 9 2 0 4-1 6-3 2 2 4 3 6 3 5 0 8-4 8-9V18c0-5-3-9-8-9-2 0-4 1-6 3-2-2-4-3-6-3Z"></path>
+                  <path d="M24 12v24M14 21h6M14 29h5M28 21h6M29 29h5"></path>
+                </svg>
+                <h3>AI Tactical<br>Insights</h3>
+              </div>
+              <p>AI-powered insights and automated tactical recommendations to help you make smarter decisions.</p>
+              <span class="dev-pill">IN DEVELOPMENT</span>
+            </article>
+
+            <article class="future-step step-orange">
+              <span class="step-number">02</span>
+              <div class="step-orb">
+                <svg viewBox="0 0 48 48" aria-hidden="true">
+                  <path d="M15 33h22a8 8 0 0 0 0-16 12 12 0 0 0-23-3A10 10 0 0 0 15 33Z"></path>
+                </svg>
+                <h3>Cloud Sync</h3>
+              </div>
+              <p>Seamless cloud synchronization across devices so your data is always up to date.</p>
+              <span class="dev-pill">IN DEVELOPMENT</span>
+            </article>
+
+            <article class="future-step step-blue">
+              <span class="step-number">03</span>
+              <div class="step-orb">
+                <svg viewBox="0 0 48 48" aria-hidden="true">
+                  <circle cx="24" cy="15" r="7"></circle>
+                  <circle cx="12" cy="19" r="5"></circle>
+                  <circle cx="36" cy="19" r="5"></circle>
+                  <path d="M11 38c1-9 6-14 13-14s12 5 13 14M4 36c1-7 4-11 10-11M34 25c6 0 10 4 10 11"></path>
+                </svg>
+                <h3>Team<br>Collaboration</h3>
+              </div>
+              <p>Collaborate with coaches, analysts and staff in real time with shared reports and insights.</p>
+              <span class="dev-pill">IN DEVELOPMENT</span>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="preview" class="preview-section">
+      <div class="preview-grid">
+        <div class="preview-card blue-panel">
+          <span>Game Tracking</span>
+          <h3>Live scoreboard and substitution panel</h3>
+        </div>
+        <div class="preview-card orange-panel">
+          <span>Player Dashboard</span>
+          <h3>Individual performance metrics at a glance</h3>
+        </div>
+        <div class="preview-card glass-panel">
+          <span>Reports</span>
+          <h3>Post-match performance summary</h3>
+        </div>
+      </div>
+    </section>
+
+    <section id="stats" class="stats-section">
+      <div class="stats-grid">
+        <div class="metric-card">
+          <span>Matches Tracked</span>
+          <strong>1,280</strong>
+        </div>
+        <div class="metric-card">
+          <span>Reports Generated</span>
+          <strong>4,520</strong>
+        </div>
+        <div class="metric-card">
+          <span>Players Analyzed</span>
+          <strong>3,190</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="cta-copy">
+        <span class="section-label">Get started</span>
+        <h2>Turn every match into a high-performance advantage.</h2>
+      </div>
+      <div class="cta-actions">
+        <button class="primary-btn" onclick="openNewGame()">Start your first game</button>
+        <button class="secondary-btn" onclick="openSignup()">Create account</button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ================= DEMO ================= -->
+
+<div id="demoScreen" class="demo-container" style="display:none;">
+
+  <button class="back-btn" onclick="goHome()">
+    ← Back to Home
+  </button>
+
+  <div class="demo-wrapper">
+
+    <div class="demo-header">
+      <span class="hero-badge">INTERACTIVE DEMO</span>
+
+      <h1>Experience Netball Stats Pro</h1>
+
+      <p>
+        Explore the live match workflow, analytics dashboard,
+        and performance tracking system used by elite coaches.
+      </p>
+    </div>
+
+    <div class="demo-grid">
+
+      <div class="demo-card glass-card">
+        <div class="demo-top">
+          <span class="demo-label">SETUP</span>
+          <span class="demo-status">READY</span>
+        </div>
+
+        <h3>Match Setup</h3>
+
+        <p>
+          Configure teams, lineups, match formats,
+          and player positions before tip-off.
+        </p>
+
+        <button class="secondary-btn">
+          Preview Setup
+        </button>
+      </div>
+
+      <div class="demo-card glass-card">
+        <div class="demo-top">
+          <span class="demo-label">LIVE MATCH</span>
+          <span class="demo-status live">LIVE</span>
+        </div>
+
+        <h3>Real-Time Tracking</h3>
+
+        <p>
+          Monitor scoring, substitutions,
+          momentum swings, and player actions live.
+        </p>
+
+        <button class="secondary-btn">
+          View Match
+        </button>
+      </div>
+
+      <div class="demo-card glass-card">
+        <div class="demo-top">
+          <span class="demo-label">ANALYTICS</span>
+          <span class="demo-status">PRO</span>
+        </div>
+
+        <h3>Performance Analytics</h3>
+
+        <p>
+          Analyze player efficiency, defensive impact,
+          possession value, and post-match reports.
+        </p>
+
+        <button class="secondary-btn">
+          View Stats
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FEATURE MODAL -->
+
+<div id="featureModal" class="feature-modal">
+
+  <div class="feature-modal-content">
+
+    <button class="modal-close" onclick="closeFeatureModal()">
+      ✕
+    </button>
+
+    <div class="modal-grid">
+
+      <div class="modal-image">
+
+        <img
+          id="modalImage"
+          src=""
+          alt="Feature Preview"
+        >
+
+      </div>
+
+      <div class="modal-details">
+
+        <span class="modal-label">
+          FEATURE PREVIEW
+        </span>
+
+        <h2 id="modalTitle">
+          Title
+        </h2>
+
+        <p id="modalDescription">
+          Description
+        </p>
+
+       <ul id="modalFeatures">
+</ul>
+
+<div id="modalHighlight" class="modal-highlight">
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div> 
+
+<!-- ROADMAP MODAL -->
+
+<div id="roadmapModal" class="roadmap-modal">
+
+  <svg class="journey-road"
+    viewbox="0 0 1000 3500"
+    preserveAspectRatio="none">
+    <path
+      class="journey-path"
+      d="
+       M500 200
+        C700 500, 700 800, 500 1100
+        C300 1400, 300 1700, 500 2000
+        C700 2300, 700 2600, 500 2900
+        C400 3100, 450 3250, 500 3400
+      "
+    />
+
+  </svg>
+
+
+
+  <div class="roadmap-container">
+
+    <button class="roadmap-close"
+      onclick="closeRoadmap()">
+      ✕
+    </button>
+
+    <section class="roadmap-hero">
+
+      <span class="roadmap-label">
+        ROADMAP 2026 
+      </span>
+
+      <h2>
+        The Future Of<br>
+      <span class="roadmap-gradient">
+        Netball Stats Pro
+      </span>
+      </h2>
+
+      <p>
+        We're building the next generation of netball
+        performance technology.
+        Three major innovations are currently in development
+        to help coaches make smarter decisions,
+        manage teams more effectively and unlock deeper insights.
+      </p>
+
+    <div class="roadmap-preview-tags">
+
+    <span class="tag-ai">🤖 AI Coach Assistant</span>
+
+    <span class="tag-cloud">☁️ Cloud Sync</span>
+
+    <span class="tag-team">👥 Team Management Hub</span>
+
+    </div> 
+    
+    <div class="roadmap-scroll">
+
+    <span>Explore The Future</span>
+
+    <div class="scroll-arrow">
+    ↓
+    </div>
+
+    </section>
+
+
+   <section class="roadmap-stop stop-ai"
+    data-progress="1">
+
+  <div class="roadmap-image">
+
+    <img
+      src="assets/images/ai-coach.jpg"
+      alt="AI Coach Assistant"
+    >
+
+  </div>
+
+  <div class="roadmap-content">
+
+
+    <div class="roadmap-status status-active">
+      IN DEVELOPMENT
+    </div>
+
+    <span class="roadmap-step">
+      Phase 1
+    </span>
+
+    <h3>
+      AI Coach Assistant
+    </h3>
+
+    <p>
+      Your digital assistant on the sideline.
+      Receive intelligent coaching insights,
+      identify momentum shifts and discover
+      smarter substitution opportunities.
+    </p>
+
+  </div>
+
+</section>
+
+    <section class="roadmap-stop stop-cloud"
+      data-progress="2">
+
+  <div class="roadmap-content">
+
+    <div class="roadmap-status status-coming">
+      COMIN SOON
+    </div>
+
+    <span class="roadmap-step">
+      Phase 2
+    </span>
+
+    <h3>
+      Cloud Sync
+    </h3>
+
+    <p>
+      Access your matches anywhere.
+      Automatically sync statistics,
+      reports and team information
+      across every device.
+    </p>
+
+  </div>
+
+  <div class="roadmap-image">
+
+    <img
+      src="assets/images/cloud-sync.jpg"
+      alt="Cloud Sync"
+    >
+
+  </div>
+
+</section>
+
+<section class="roadmap-stop stop-team"
+  data-progress="3">
+
+  <div class="roadmap-image">
+
+    <img
+      src="assets/images/team-hub.jpg"
+      alt="Team Hub"
+    >
+
+  </div>
+
+  <div class="roadmap-content">
+
+
+    <div class="roadmap-status status-future">
+      FUTURE RELEASE
+    </div>
+
+    <span class="roadmap-step">
+      Phase 3
+    </span>
+
+    <h3>
+      Team Management Hub
+    </h3>
+
+    <p>
+      Manage your entire club from one platform.
+      Track attendance, schedules,
+      training sessions and team communication.
+    </p>
+
+  </div>
+
+</section>
+
+<section class="roadmap-finish">
+
+  <div class="finish-orb">
+    🚀
+  </div>
+
+  <span class="roadmap-step">
+    FINAL DESTINATION
+  </span>
+
+  <h2>
+    The Journey Continues
+  </h2>
+
+  <p>
+    This is only the beginning.
+
+    Netball Stats Pro is continuously evolving
+    to help teams perform at their highest level.
+  </p>
+
+</section>
+
+  </div>
+
+
+
+</div>
+
+<div id="toast" class="toast">
+  <div class="toast-icon">🚀</div>
+  <div class="toast-content">
+    <h4> Coming Soon</h4>
+    <P> Authentication System is curently in development.</P>
+  </div>
+</div>
+<div class="bottom-wave"></div>
+</body>
+</html>
