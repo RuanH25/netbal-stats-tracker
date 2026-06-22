@@ -13,21 +13,95 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
 <script src="js/app.js" defer></script>
 </head>
+
 <body class="app-page">
+
+<!-- APP LAYOUT -->
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="sidebar-logo">
+      <h2>NT</h2>
+      <span>NetballTracker Pro</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-item active">🏠 Dashboard</button>
+      <button class="nav-item">🏐 Matches</button>
+      <button class="nav-item">👥 Teams</button>
+      <button class="nav-item">👤 Players</button>
+      <button class="nav-item">📅 Calendar</button>
+      <button class="nav-item">📊 Analytics</button>
+      <button class="nav-item">⚙ Settings</button>
+    </nav>
+
+    <div class="sidebar-user">
+      Guest User
+    </div>
+
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <header class="app-header">
+
+      <div class="page-title">
+        Dashboard
+      </div>
+
+      <div class="header-actions">
+        <input
+          type="text"
+          placeholder="Search..."
+          class="search-box"
+        >
+
+        <button class="header-icon">🔔</button>
+        <button class="header-icon">👤</button>
+
+      </div>
+
+    </header>
+
+
+
 <!-- ================= APP HOME ================= -->
 <div id="home" class="home-container app-home-container">
   <div class="home-wrapper">
-    <div class="hero">
-      <div class="badge">PRO TRACKER</div>
-      <h1>NETBALL <span>STATS</span></h1>
-      <p>
-        Create a new match, resume saved games, and manage your live netball tracking workflow.
-      </p>
+    <div class="dashboard-banner">
 
-      <button class="primary-btn" onclick="openNewGame()">
-        + Create New Game
-      </button>
+  <div class="banner-content">
+
+    <div class="banner-badge">
+      NETBALLTRACKER PRO
     </div>
+
+    <h1>
+      Netball Intelligence
+      <span>Starts Here</span>
+    </h1>
+
+    <p>
+      Track matches, manage teams, analyze performance,
+      and build your club's complete netball ecosystem.
+    </p>
+
+    <div class="banner-actions">
+
+      <button
+        class="primary-btn"
+        onclick="openNewGame()">
+        Start Tracking
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 
     <div class="recent-section">
       <h2>RECENT GAMES</h2>
@@ -255,7 +329,8 @@
   <h1 id="statsTitle">Match Stats</h1>
 
   <div id="statsContent"></div>
-
+</div>
+</main>
 </div>
 </body>
 </html>

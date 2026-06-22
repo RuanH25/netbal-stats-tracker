@@ -306,4 +306,182 @@ document
 
 });
 
+const slides =
+document.querySelectorAll(".preview-carousel .slide");
 
+let current = 0;
+
+function updateCarousel(){
+
+  slides.forEach((slide,index)=>{
+
+    let position =
+      (index - current + slides.length)
+      % slides.length;
+
+    slide.className =
+      `slide pos-${position}`;
+
+  });
+
+}
+
+updateCarousel();
+
+setInterval(()=>{
+
+  current++;
+
+  if(current >= slides.length){
+
+    current = 0;
+
+  }
+
+  updateCarousel();
+
+},5000);
+
+function openInfoModal(type){
+
+  const modal =
+    document.getElementById("infoModal");
+
+  const title =
+    document.getElementById("infoTitle");
+
+  const body =
+    document.getElementById("infoBody");
+
+  if(type === "about"){
+
+    title.textContent =
+      "Why Netball Stats Pro Exists";
+
+    body.innerHTML = `
+
+      <div class="about-highlight">
+        Building the future of netball analytics,
+        one match at a time.
+      </div>
+
+      <p>
+        Netball Stats Pro started from a simple idea:
+        performance data should be easy to collect,
+        understand and use.
+      </p>
+
+      <h3>The Problem</h3>
+
+      <p>
+        Many teams still rely on manual notes,
+        spreadsheets and time-consuming analysis.
+      </p>
+
+      <h3>The Vision</h3>
+
+      <p>
+        Professional analytics for every team.
+      </p>
+
+    `;
+  }
+
+  if(type === "contact"){
+
+    title.textContent =
+      "Contact";
+
+    body.innerHTML = `
+
+      <p>
+        We'd love to hear from you.
+      </p>
+
+      <h3>Email</h3>
+
+      <p>
+        info@netballstatspro.com
+      </p>
+
+      <h3>Response Time</h3>
+
+      <p>
+        We aim to respond within 24–48 hours.
+      </p>
+
+    `;
+  }
+
+  if(type === "faq"){
+
+    title.textContent =
+      "Frequently Asked Questions";
+
+    body.innerHTML = `
+
+      <h3>What devices are supported?</h3>
+
+      <p>
+        Netball Stats Pro works on modern
+        phones, tablets and desktops.
+      </p>
+
+      <h3>Is cloud sync available?</h3>
+
+      <p>
+        Cloud Sync is currently in development.
+      </p>
+
+      <h3>Will there be AI features?</h3>
+
+      <p>
+        Yes. AI Tactical Insights are part
+        of our future roadmap.
+      </p>
+
+    `;
+  }
+
+  if(type === "support"){
+
+    title.textContent =
+      "Support";
+
+    body.innerHTML = `
+
+      <p>
+        Need assistance?
+      </p>
+
+      <h3>Bug Reports</h3>
+
+      <p>
+        Report issues and unexpected behaviour.
+      </p>
+
+      <h3>Feature Requests</h3>
+
+      <p>
+        Suggest improvements and future ideas.
+      </p>
+
+    `;
+  }
+
+  modal.classList.add("active");
+
+  document.body.style.overflow =
+    "hidden";
+}
+
+function closeInfoModal(){
+
+  document
+    .getElementById("infoModal")
+    .classList
+    .remove("active");
+
+  document.body.style.overflow = "";
+
+}

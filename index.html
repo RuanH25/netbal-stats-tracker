@@ -305,53 +305,240 @@
     </section>
 
     <section id="preview" class="preview-section">
-      <div class="preview-grid">
-        <div class="preview-card blue-panel">
-          <span>Game Tracking</span>
-          <h3>Live scoreboard and substitution panel</h3>
-        </div>
-        <div class="preview-card orange-panel">
-          <span>Player Dashboard</span>
-          <h3>Individual performance metrics at a glance</h3>
-        </div>
-        <div class="preview-card glass-panel">
-          <span>Reports</span>
-          <h3>Post-match performance summary</h3>
-        </div>
-      </div>
-    </section>
 
-    <section id="stats" class="stats-section">
-      <div class="stats-grid">
-        <div class="metric-card">
-          <span>Matches Tracked</span>
-          <strong>1,280</strong>
-        </div>
-        <div class="metric-card">
-          <span>Reports Generated</span>
-          <strong>4,520</strong>
-        </div>
-        <div class="metric-card">
-          <span>Players Analyzed</span>
-          <strong>3,190</strong>
-        </div>
-      </div>
-    </section>
+  <div class="preview-carousel">
 
-    <section class="final-cta">
-      <div class="cta-copy">
-        <span class="section-label">Get started</span>
-        <h2>Turn every match into a high-performance advantage.</h2>
+    <div class="carousel-track">
+
+      <div class="slide" data-index="0">
+        <img src="assets/images/preview1.jpg" alt="">
       </div>
-      <div class="cta-actions">
-        <button class="primary-btn" onclick="openNewGame()">Start your first game</button>
-        <button class="secondary-btn" onclick="openSignup()">Create account</button>
+
+      <div class="slide" data-index="1">
+        <img src="assets/images/preview2.jpg" alt="">
       </div>
-    </section>
+
+      <div class="slide" data-index="2">
+        <img src="assets/images/preview3.jpg" alt="">
+      </div>
+
+      <div class="slide" data-index="3">
+        <img src="assets/images/preview4.jpg" alt="">
+      </div>
+
+      <div class="slide" data-index="4">
+        <img src="assets/images/preview5.jpg" alt="">
+      </div>
+
+      <div class="slide" data-index="5">
+        <img src="assets/images/preview6.jpg" alt="">
+      </div>
+
+      <div class="slide" data-index="6">
+        <img src="assets/images/preview7.jpg" alt="">
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+    <section id="stats" class="impact-section">
+
+  <div class="impact-card">
+
+    <span class="section-label">
+      COMING SOON
+    </span>
+
+    <h2>
+      Impact Dashboard
+    </h2>
+
+    <p>
+      As teams begin using Netball Stats Pro,
+      this section will showcase real-world
+      analytics and platform growth.
+    </p>
+
+    <div class="impact-list">
+
+      <span>✓ Matches Tracked</span>
+
+      <span>✓ Goals Recorded</span>
+
+      <span>✓ Player Performance Trends</span>
+
+      <span>✓ Team Analytics</span>
+
+      <span>✓ AI Insights</span>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer class="site-footer">
+
+  <div class="footer-grid">
+
+    <div class="footer-brand">
+
+      <h3>
+        Netball Stats <span>Pro</span>
+      </h3>
+
+      <p>
+        Elite match intelligence built for
+        coaches, analysts and teams that
+        demand performance.
+      </p>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h4>Product</h4>
+
+      <a href="#features">Features</a>
+
+      <a href="#preview">Preview</a>
+
+      <a href="#" onclick="openRoadmap()">
+        Development
+      </a>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h4>Company</h4>
+
+      <a href="#" onclick="openInfoModal()">
+        About
+      </a>
+
+      <a href="#" onclick="openRoadmap()">
+        Roadmap
+      </a>
+
+      <a href="#" onclick="openInfoModal('contact')">
+        Contact
+      </a>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h4>Resources</h4>
+
+      <a href="#" onclick="openInfoModal('faq')">
+        FAQ
+      </a>
+
+      <a href="#" onclick="openInfoModal('support')">
+        Support
+      </a>
+
+      <a href="#">Updates</a>
+
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+
+    <span>
+      © 2026 Netball Stats Pro.
+      All rights reserved.
+    </span>
+
+  </div>
+
+</footer>
+
   </div>
 </div>
 
-<!-- ================= DEMO ================= -->
+<div id="infoModal" class="info-modal">
+
+  <div class="info-modal-content">
+
+    <button
+      class="info-close"
+      onclick="closeInfoModal()">
+      ✕
+    </button>
+
+    <span class="section-label">
+      ABOUT
+    </span>
+
+    <h2 id="infoTitle">
+      Why Netball Stats Pro Exists
+    </h2>
+
+    <div id="infoBody">
+
+      <p>
+      Netball Stats Pro started from a simple idea:
+      performance data should be easy to collect,
+      easy to understand and available to every team.
+      </p>
+
+      <h3>The Problem</h3>
+
+      <p>
+      Many coaches still rely on handwritten notes,
+      spreadsheets or expensive software that can be
+      difficult to use during live matches. Valuable
+      performance information often gets lost or never
+      gets analysed properly.
+      </p>
+
+      <h3>Why I Stared Building It</h3>
+
+      <p>
+        I wanted a better way to track what really
+        happens during a game. The goal was to create
+        a platform that could capture live match events,
+        track player performance and turn statistics into
+        meaningful insights without requiring hours of
+        manual analysis afterwards. The coach doesnt have to struggle
+        to decide who to chose to play a final or which player will fit a cetrain 
+        position better, this app will give you insights that will make this
+        decision way easier for the coaches.
+      </p>
+
+      <h3>The Vision</h3>
+
+      <p>  
+        Netball Stats Pro is being built to help coaches,
+        analysts and players make smarter decisions
+        through data. By combining live tracking,
+        performance analytics and future AI-powered
+        insights, the platform aims to make professional
+        level match analysis accessible to every team.
+      </p>
+
+      <h3>Where We're Going</h3>
+
+      <p>
+      This is only the beginning. Future development
+      includes AI tactical insights, cloud
+      synchronization, team collaboration tools and
+      advanced reporting features designed to help
+      teams unlock their full potential.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
 
 <div id="demoScreen" class="demo-container" style="display:none;">
 
@@ -599,7 +786,7 @@
   <div class="roadmap-content">
 
     <div class="roadmap-status status-coming">
-      COMIN SOON
+      COMING SOON
     </div>
 
     <span class="roadmap-step">
@@ -666,34 +853,6 @@
   </div>
 
 </section>
-
-<section class="roadmap-finish">
-
-  <div class="finish-orb">
-    🚀
-  </div>
-
-  <span class="roadmap-step">
-    FINAL DESTINATION
-  </span>
-
-  <h2>
-    The Journey Continues
-  </h2>
-
-  <p>
-    This is only the beginning.
-
-    Netball Stats Pro is continuously evolving
-    to help teams perform at their highest level.
-  </p>
-
-</section>
-
-  </div>
-
-
-
 </div>
 
 <div id="toast" class="toast">
@@ -703,6 +862,9 @@
     <P> Authentication System is curently in development.</P>
   </div>
 </div>
+
+
 <div class="bottom-wave"></div>
+
 </body>
 </html>
