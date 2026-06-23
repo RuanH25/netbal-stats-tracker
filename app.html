@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="css/app.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
 <script src="js/app.js" defer></script>
+<script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body class="app-page">
@@ -22,24 +23,69 @@
   <!-- SIDEBAR -->
   <aside class="sidebar">
 
-    <div class="sidebar-logo">
-      <h2>NT</h2>
-      <span>NetballTracker Pro</span>
+  <div class="sidebar-profile">
+
+    <div class="avatar-wrapper">
+
+        <img
+          src="https://i.pravatar.cc/120"
+          alt="Profile"
+          class="sidebar-avatar"
+        >
+
+        <button class="edit-profile-btn">
+            ✎
+        </button>
+
     </div>
 
-    <nav class="sidebar-nav">
-      <button class="nav-item active">🏠 Dashboard</button>
-      <button class="nav-item">🏐 Matches</button>
-      <button class="nav-item">👥 Teams</button>
-      <button class="nav-item">👤 Players</button>
-      <button class="nav-item">📅 Calendar</button>
-      <button class="nav-item">📊 Analytics</button>
-      <button class="nav-item">⚙ Settings</button>
-    </nav>
+    <h3>Guest User</h3>
 
-    <div class="sidebar-user">
-      Guest User
-    </div>
+    <span>Coach</span>
+
+</div>
+
+   <nav class="sidebar-nav">
+
+<button class="nav-item active" data-page="dashboard">
+  <span class="nav-icon">
+    <i data-lucide="house"></i>
+  </span>
+  <span>Dashboard</span>
+</button>
+
+<button class="nav-item" data-page="matches">
+  <i data-lucide="volleyball"></i>
+  <span>Matches</span>
+</button>
+
+<button class="nav-item" data-page="teams">
+  <i data-lucide="users"></i>
+  <span>Teams</span>
+</button>
+
+<button class="nav-item" data-page="players">
+  <i data-lucide="user"></i>
+  <span>Players</span>
+</button>
+
+<button class="nav-item" data-page="calendar">
+  <i data-lucide="calendar-days"></i>
+  <span>Calendar</span>
+</button>
+
+<button class="nav-item" data-page="analytics">
+  <i data-lucide="chart-column"></i>
+  <span>Analytics</span>
+</button>
+
+<button class="nav-item" data-page="settings">
+  <i data-lucide="settings"></i>
+  <span>Settings</span>
+</button>
+
+</nav> 
+
 
   </aside>
 
@@ -48,8 +94,8 @@
 
     <header class="app-header">
 
-      <div class="page-title">
-        Dashboard
+      <div class="page-title" id="pageTitle">
+       Dashboard
       </div>
 
       <div class="header-actions">
@@ -59,8 +105,29 @@
           class="search-box"
         >
 
-        <button class="header-icon">🔔</button>
-        <button class="header-icon">👤</button>
+        <div class="notification-wrapper">
+
+          <button class="header-icon">
+            🔔
+          </button>
+
+        <span class="notification-badge">
+          2
+        </span>
+
+        </div>
+        <div class="profile-card">
+
+  <div class="profile-avatar">
+    👤
+  </div>
+
+  <div class="profile-info">
+    <strong>Guest User</strong>
+    <small>Coach</small>
+  </div>
+
+</div>
 
       </div>
 
@@ -70,7 +137,8 @@
 
 <!-- ================= APP HOME ================= -->
 <div id="home" class="home-container app-home-container">
-  <div class="home-wrapper">
+  <div id="pageContent">
+  <div id="dashboardPage" class="page-section">
     <div class="dashboard-banner">
 
   <div class="banner-content">
@@ -98,16 +166,102 @@
       </button>
 
     </div>
+    <div class="wave-line"></div>
+  </div>
 
+
+  
+</div>
+
+<div class="dashboard-stats">
+
+  <div class="stat-card">
+    <div class="stat-icon">🏐</div>
+    <span class="stat-label">Matches</span>
+    <h3>0</h3>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon">👥</div>
+    <span class="stat-label">Players</span>
+    <h3>0</h3>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon">🛡️</div>
+    <span class="stat-label">Teams</span>
+    <h3>0</h3>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-icon">%</div>
+    <span class="stat-label">Win Rate</span>
+    <h3>--</h3>
   </div>
 
 </div>
 
-    <div class="recent-section">
-      <h2>RECENT GAMES</h2>
-      <div id="recentGames" class="games-grid"></div>
+    <div class="dashboard-grid">
+
+  <div class="upcoming-card">
+
+    <h2>Upcoming Events</h2>
+
+    <div class="event-item">
+      <span>🏐 Training</span>
+      <small>No events scheduled</small>
     </div>
+
+    <div class="event-item">
+      <span>🏆 Matches</span>
+      <small>No matches scheduled</small>
+    </div>
+
+    <div class="event-item">
+      <span>📅 Tournament</span>
+      <small>No tournaments scheduled</small>
+    </div>
+
   </div>
+
+  <div class="recent-section">
+    <h2>RECENT GAMES</h2>
+    <div id="recentGames" class="games-grid"></div>
+  </div>
+
+</div>
+</div>
+
+<div id="matchesPage" class="page-section" style="display:none;">
+    <h2>Matches</h2>
+    <p>Coming Soon</p>
+</div>
+
+<div id="teamsPage" class="page-section" style="display:none;">
+    <h2>Teams</h2>
+    <p>Coming Soon</p>
+</div>
+
+<div id="playersPage" class="page-section" style="display:none;">
+    <h2>Players</h2>
+    <p>Coming Soon</p>
+</div>
+
+<div id="calendarPage" class="page-section" style="display:none;">
+    <h2>Calendar</h2>
+    <p>Coming Soon</p>
+</div>
+
+<div id="analyticsPage" class="page-section" style="display:none;">
+    <h2>Analytics</h2>
+    <p>Coming Soon</p>
+</div>
+
+<div id="settingsPage" class="page-section" style="display:none;">
+    <h2>Settings</h2>
+    <p>Coming Soon</p>
+</div>
+</div>
 </div>
 
 <!-- ================= SETUP ================= -->
@@ -332,5 +486,8 @@
 </div>
 </main>
 </div>
+<script>
+  lucide.createIcons();
+</script>
 </body>
 </html>

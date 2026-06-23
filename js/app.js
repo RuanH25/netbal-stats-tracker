@@ -1705,3 +1705,47 @@ if ("serviceWorker" in navigator) {
     });
   });
 }
+
+const navButtons = document.querySelectorAll(".nav-item");
+const pageTitle = document.getElementById("pageTitle");
+
+const pages = {
+    dashboard: document.getElementById("dashboardPage"),
+    matches: document.getElementById("matchesPage"),
+    teams: document.getElementById("teamsPage"),
+    players: document.getElementById("playersPage"),
+    calendar: document.getElementById("calendarPage"),
+    analytics: document.getElementById("analyticsPage"),
+    settings: document.getElementById("settingsPage")
+};
+
+function showPage(pageName) {
+
+    Object.values(pages).forEach(page => {
+        page.style.display = "none";
+    });
+
+    pages[pageName].style.display = "block";
+
+    pageTitle.textContent =
+        pageName.charAt(0).toUpperCase() +
+        pageName.slice(1);
+}
+
+navButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        navButtons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        showPage(button.dataset.page);
+
+    });
+
+});
+
+showPage("dashboard");
