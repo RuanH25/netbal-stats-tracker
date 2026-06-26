@@ -2,6 +2,7 @@
 let players = [];
 let lineup = {};
 let selectedPosition = null;
+let selectedTeam = null;
 
 let teamAScore = 0;
 let teamBScore = 0;
@@ -1749,3 +1750,504 @@ navButtons.forEach(button => {
 });
 
 showPage("dashboard");
+
+const quickBtn = document.getElementById("quickActionsBtn");
+const quickMenu = document.querySelector(".quick-menu");
+
+quickBtn.addEventListener("click", (e) => {
+
+    e.stopPropagation();
+
+    quickMenu.style.display =
+        quickMenu.style.display === "block"
+        ? "none"
+        : "block";
+});
+
+document.addEventListener("click", (e) => {
+
+    const quickActions = document.querySelector(".quick-actions");
+
+    if (!quickActions.contains(e.target)) {
+
+        quickMenu.style.display = "none";
+
+    }
+
+});
+
+// ===========================
+// TEAM MODAL
+// ===========================
+
+const addTeamModal =
+    document.getElementById("addTeamModal");
+
+const openAddTeamBtn =
+    document.getElementById("openAddTeamBtn");
+
+const cancelTeamBtn =
+    document.getElementById("cancelTeamBtn");
+
+const teamLogoInput =
+    document.getElementById("teamLogoInput");
+
+const teamLogoPreview =
+    document.getElementById("teamLogoPreview");
+
+let selectedTeamLogo = "";    
+
+const panelAddTeamBtn =
+    document.getElementById("panelAddTeamBtn");
+
+openAddTeamBtn.addEventListener("click", () => {
+
+    addTeamModal.style.display = "flex";
+
+});
+
+panelAddTeamBtn.addEventListener("click", () => {
+
+    addTeamModal.style.display = "flex";
+
+});
+
+teamLogoInput.addEventListener("change", () => {
+
+    const file = teamLogoInput.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(event){
+
+        selectedTeamLogo = event.target.result;
+
+        teamLogoPreview.innerHTML = `
+            <img src="${selectedTeamLogo}" alt="Team Logo">
+        `;
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+const openAddPlayerBtn =
+document.getElementById("openAddPlayerBtn");
+
+const addPlayerModal =
+document.getElementById("addPlayerModal");
+
+const cancelPlayerBtn =
+document.getElementById("cancelPlayerBtn");
+
+cancelTeamBtn.addEventListener("click", () => {
+
+    addTeamModal.style.display = "none";
+
+});
+
+openAddPlayerBtn.addEventListener("click", () => {
+
+    addPlayerModal.style.display = "flex";
+
+});
+
+cancelPlayerBtn.addEventListener("click", () => {
+
+    addPlayerModal.style.display = "none";
+
+});
+
+const savePlayerBtn =
+    document.getElementById("savePlayerBtn");
+
+savePlayerBtn.addEventListener("click", () => {
+
+    if (!selectedTeam) return;
+
+    const playerName =
+        document.getElementById("playerNameInput")
+        .value.trim();
+
+    const playerNumber =
+        document.getElementById("playerNumberInput")
+        .value.trim();
+
+    if (!playerName) return;
+
+    const selectedPositions =
+        Array.from(
+            document.querySelectorAll(
+                "#addPlayerModal input[type='checkbox']:checked"
+            )
+        ).map(box => box.value);
+
+    selectedTeam.players.push({
+
+        number: playerNumber,
+
+        name: playerName,
+
+        positions: selectedPositions
+
+    });
+
+    localStorage.setItem(
+        "teams",
+        JSON.stringify(teams)
+    );
+
+    renderSelectedTeam();
+
+    document.getElementById("playerNameInput").value = "";
+    document.getElementById("playerNumberInput").value = "";
+
+    document
+        .querySelectorAll(
+            "#addPlayerModal input[type='checkbox']"
+        )
+        .forEach(box => box.checked = false);
+
+    addPlayerModal.style.display = "none";
+
+});
+
+addTeamModal.addEventListener("click", (e) => {
+
+    if (e.target === addTeamModal) {
+
+        addTeamModal.style.display = "none";
+
+    }
+
+});
+
+addPlayerModal.addEventListener("click", (e) => {
+
+    if (e.target === addPlayerModal) {
+
+        addPlayerModal.style.display = "none";
+
+    }
+
+});
+
+document.addEventListener("keydown", (e) => {
+
+    if (e.key === "Escape") {
+
+        addTeamModal.style.display = "none";
+        addPlayerModal.style.display = "none";
+
+    }
+
+});
+
+let teams =
+    JSON.parse(localStorage.getItem("teams")) || [];
+
+function renderTeams() {
+
+    const teamsList =
+        document.getElementById("teamsList");
+
+    const teamCount =
+        document.getElementById("teamCount");
+
+    teamCount.textContent =
+        `${teams.length} Team${teams.length !== 1 ? "s" : ""}`;
+
+    teamsList.innerHTML = "";
+
+    if (teams.length === 0) {
+
+    teamsList.innerHTML = `
+        <div class="team-empty-state">
+
+            <i data-lucide="users"></i>
+
+            <h3>No Teams Yet</h3>
+
+            <p>Create your first team to get started.</p>
+
+        </div>
+    `;
+
+    lucide.createIcons();
+
+    return;
+}
+
+    teams.forEach((team,index) => {
+
+        const card =
+        document.createElement("div");
+
+        card.className =
+            `team-card ${
+                selectedTeam &&
+                selectedTeam.id === team.id
+                    ? "active"
+                    : ""
+            }`;
+
+        card.innerHTML = `
+
+           <div class="team-card-left">
+
+    <div class="team-circle">
+
+    ${
+        team.logo
+            ? `<img src="${team.logo}" alt="${team.name} Logo">`
+            : team.name.charAt(0).toUpperCase()
+    }
+
+</div>
+
+    <div class="team-info">
+
+        <h3>${team.name}</h3>
+
+        <span>
+
+            ${team.players.length}
+            Player${team.players.length !== 1 ? "s" : ""}
+
+        </span>
+
+    </div>
+
+</div>
+
+            <i data-lucide="chevron-right"></i>
+
+        `;
+
+        card.addEventListener("click",()=>{
+
+            selectedTeam = team;
+
+            renderTeams();
+
+            renderSelectedTeam();
+
+        });
+
+        teamsList.appendChild(card);
+
+    });
+
+    lucide.createIcons();
+}
+
+function renderSelectedTeam() {
+
+    const header =
+        document.getElementById(
+            "selectedTeamHeader"
+        );
+
+    const rosterContainer =
+        document.getElementById(
+            "rosterContainer"
+        );
+
+    const rosterList =
+        document.getElementById(
+            "rosterList"
+        );
+
+    if(!selectedTeam){
+
+        header.innerHTML = `
+            <div class="empty-team">
+
+                <div class="empty-team-icon">
+                    <i data-lucide="shield"></i>
+                </div>
+
+                <h2>No Team Selected</h2>
+
+                <p>
+                    Create a team or select one from the left panel.
+                </p>
+
+            </div>
+        `;
+
+        rosterContainer.style.display =
+            "none";
+
+        lucide.createIcons();
+
+        return;
+    }
+
+    rosterContainer.style.display =
+        "block";
+
+    header.innerHTML = `
+
+        <div class="team-profile">
+
+            <div class="profile-left">
+
+                <div class="profile-badge">
+
+                    ${selectedTeam.name
+                        .charAt(0)
+                        .toUpperCase()}
+
+                </div>
+
+                <div>
+
+                    <h2>
+                        ${selectedTeam.name}
+                    </h2>
+
+                    <p>
+                        ${selectedTeam.players.length}
+                        Players
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="profile-actions">
+
+                <button class="icon-btn">
+                    <i data-lucide="pencil"></i>
+                </button>
+
+                <button class="icon-btn delete">
+                    <i data-lucide="trash-2"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+    rosterList.innerHTML = "";
+
+    if(selectedTeam.players.length === 0){
+
+        rosterList.innerHTML = `
+
+            <div class="empty-roster">
+                No Players Yet
+            </div>
+
+        `;
+
+        lucide.createIcons();
+
+        return;
+    }
+
+  selectedTeam.players.forEach(player=>{
+
+    rosterList.innerHTML += `
+
+        <div class="roster-player">
+
+            <div class="player-number">
+                ${player.number || "--"}
+            </div>
+
+            <div class="player-name">
+                ${player.name}
+            </div>
+
+            <div class="player-positions">
+
+                ${player.positions
+                    .map(position =>
+                        `<span class="position-tag">${position}</span>`
+                    )
+                    .join("")}
+
+            </div>
+
+            <button class="player-edit">
+                <i data-lucide="pencil"></i>
+            </button>
+
+            <button class="player-delete">
+                <i data-lucide="trash-2"></i>
+            </button>
+
+        </div>
+
+    `;
+
+});
+
+    lucide.createIcons();
+}
+
+
+const saveTeamBtn =
+    document.getElementById("saveTeamBtn");
+
+saveTeamBtn.addEventListener("click", () => {
+
+    const input =
+        document.getElementById("teamNameInput");
+
+    const teamName =
+        input.value.trim();
+
+    if (!teamName) return;
+
+teams.push({
+
+    id: Date.now(),
+
+    name: teamName,
+
+    logo: selectedTeamLogo,
+
+    players: []
+
+});
+
+selectedTeam =
+    teams[teams.length - 1];
+
+    localStorage.setItem(
+        "teams",
+        JSON.stringify(teams)
+    );
+
+    renderTeams();
+
+    input.value = "";
+
+    selectedTeamLogo = "";
+
+teamLogoPreview.innerHTML = `
+    <span>No Logo</span>
+`;
+
+teamLogoInput.value = "";
+
+    addTeamModal.style.display = "none";
+
+});
+
+if (teams.length > 0) {
+
+    selectedTeam = teams[0];
+
+}
+
+renderTeams();
+renderSelectedTeam();

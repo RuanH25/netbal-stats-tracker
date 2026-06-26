@@ -108,7 +108,7 @@
         <div class="notification-wrapper">
 
           <button class="header-icon">
-            🔔
+            <i data-lucide="bell"></i>
           </button>
 
         <span class="notification-badge">
@@ -116,28 +116,50 @@
         </span>
 
         </div>
-        <div class="profile-card">
 
-  <div class="profile-avatar">
-    👤
+   <div class="quick-actions">
+
+  <button class="quick-btn" id="quickActionsBtn">
+    Quick Actions
+    <span>▼</span>
+  </button>
+
+  <div class="quick-menu">
+
+    <button>
+  <i data-lucide="volleyball"></i>
+  New Match
+</button>
+
+<button>
+  <i data-lucide="users"></i>
+  Add Team
+</button>
+
+<button>
+  <i data-lucide="user-plus"></i>
+  Add Player
+</button>
+
+<button>
+  <i data-lucide="calendar-plus"></i>
+  Create Event
+</button>
+
   </div>
 
-  <div class="profile-info">
-    <strong>Guest User</strong>
-    <small>Coach</small>
-  </div>
+</div>     
 
-</div>
-
-      </div>
+<button class="logout-btn">
+  Sign Out
+</button>
 
     </header>
 
 
 
-<!-- ================= APP HOME ================= -->
-<div id="home" class="home-container app-home-container">
-  <div id="pageContent">
+<!-- ================= APP PAGES ================= -->
+<div id="pageContent" class="app-pages">
   <div id="dashboardPage" class="page-section">
     <div class="dashboard-banner">
 
@@ -237,10 +259,250 @@
     <p>Coming Soon</p>
 </div>
 
-<div id="teamsPage" class="page-section" style="display:none;">
-    <h2>Teams</h2>
-    <p>Coming Soon</p>
+
+<!-- ADD TEAM MODAL -->
+
+<div id="addTeamModal" class="team-modal">
+
+    <div class="team-modal-content">
+
+        <h2>Add Team</h2>
+
+        <input
+            type="text"
+            id="teamNameInput"
+            placeholder="Team Name"
+        >
+
+        <div class="team-logo-upload">
+
+    <div id="teamLogoPreview" class="team-logo-preview">
+
+        <span>No Logo</span>
+
+    </div>
+
+    <input
+        type="file"
+        id="teamLogoInput"
+        accept="image/*"
+    >
+
 </div>
+
+        <div class="team-modal-actions">
+
+            <button
+                id="cancelTeamBtn"
+                class="secondary-btn"
+            >
+                Cancel
+            </button>
+
+            <button
+                id="saveTeamBtn"
+                class="primary-btn"
+            >
+                Save Team
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="teamsPage" class="page-section team-page" style="display:none;">
+
+    <div class="team-page-header">
+
+        <div class="team-title">
+
+    <h1>Team Management</h1>
+
+    <p>
+        Manage your teams, players and match rosters.
+    </p>
+
+    </div>
+
+        <button
+            class="team-add-btn"
+            id="openAddTeamBtn">
+            + Add Team
+        </button>
+
+    </div>
+
+    <div class="team-layout">
+
+        <!-- LEFT SIDE -->
+
+<section class="team-list-panel">
+
+    <div class="team-list-header">
+
+        <div class="panel-icon">
+            <i data-lucide="users"></i>
+        </div>
+
+        <div>
+
+            <h2>My Teams</h2>
+
+            <span id="teamCount">
+                0 Teams
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="team-divider"></div>
+
+    <div id="teamsList">
+        <!-- JS -->
+    </div>
+
+    <button
+        class="team-panel-add-btn"
+        id="panelAddTeamBtn">
+
+        + Add Team
+
+    </button>
+
+</section>
+
+        <!-- RIGHT SIDE -->
+
+        <section class="team-detail-panel">
+
+            <div id="selectedTeamHeader">
+
+                <div class="empty-team">
+
+                    <div class="empty-team-icon">
+                        <i data-lucide="shield"></i>
+                    </div>
+
+                    <h2>No Team Selected</h2>
+
+                    <p>
+                        Create a team or select one from the left panel.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div id="rosterContainer" style="display:none;">
+
+                <div class="roster-top">
+
+                    <h3>Team Roster</h3>
+
+                    <button
+                        class="add-player-btn"
+                        id="openAddPlayerBtn">
+
+                        + Add Player
+
+                    </button>
+
+                </div>
+
+                <div id="rosterList">
+                    <!-- Players inserted by JavaScript -->
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+<!-- ADD PLAYER MODAL -->
+
+<div id="addPlayerModal" class="team-modal">
+
+    <div class="team-modal-content">
+
+        <h2>Add Player</h2>
+
+        <input
+            type="text"
+            id="playerNameInput"
+            placeholder="Player Name"
+        >
+
+        <input
+            type="text"
+            id="playerNumberInput"
+            placeholder="Player Number"
+        >
+
+        <div class="position-select">
+
+            <label>
+                <input type="checkbox" value="GS">
+                GS
+            </label>
+
+            <label>
+                <input type="checkbox" value="GA">
+                GA
+            </label>
+
+            <label>
+                <input type="checkbox" value="WA">
+                WA
+            </label>
+
+            <label>
+                <input type="checkbox" value="C">
+                C
+            </label>
+
+            <label>
+                <input type="checkbox" value="WD">
+                WD
+            </label>
+
+            <label>
+                <input type="checkbox" value="GD">
+                GD
+            </label>
+
+            <label>
+                <input type="checkbox" value="GK">
+                GK
+            </label>
+
+        </div>
+
+        <div class="team-modal-actions">
+
+            <button
+                id="cancelPlayerBtn"
+                class="secondary-btn">
+                Cancel
+            </button>
+
+            <button
+                id="savePlayerBtn"
+                class="primary-btn">
+                Save Player
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 <div id="playersPage" class="page-section" style="display:none;">
     <h2>Players</h2>
@@ -261,7 +523,7 @@
     <h2>Settings</h2>
     <p>Coming Soon</p>
 </div>
-</div>
+
 </div>
 
 <!-- ================= SETUP ================= -->
