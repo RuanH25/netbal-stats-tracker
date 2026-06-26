@@ -1800,11 +1800,13 @@ let selectedTeamLogo = "";
 const panelAddTeamBtn =
     document.getElementById("panelAddTeamBtn");
 
-openAddTeamBtn.addEventListener("click", () => {
+if (openAddTeamBtn) {
+    openAddTeamBtn.addEventListener("click", () => {
 
-    addTeamModal.style.display = "flex";
+        addTeamModal.style.display = "flex";
 
-});
+    });
+}
 
 panelAddTeamBtn.addEventListener("click", () => {
 
@@ -1949,6 +1951,19 @@ document.addEventListener("keydown", (e) => {
 let teams =
     JSON.parse(localStorage.getItem("teams")) || [];
 
+function renderTeamBadge(team, containerClass = "team-circle") {
+
+    return `
+        <div class="${containerClass}">
+            ${
+                team.logo
+                    ? `<img src="${team.logo}" alt="${team.name} Logo">`
+                    : team.name.charAt(0).toUpperCase()
+            }
+        </div>
+    `;
+}
+
 function renderTeams() {
 
     const teamsList =
@@ -1998,15 +2013,7 @@ function renderTeams() {
 
            <div class="team-card-left">
 
-    <div class="team-circle">
-
-    ${
-        team.logo
-            ? `<img src="${team.logo}" alt="${team.name} Logo">`
-            : team.name.charAt(0).toUpperCase()
-    }
-
-</div>
+    ${renderTeamBadge(team)}
 
     <div class="team-info">
 
@@ -2092,97 +2099,115 @@ function renderSelectedTeam() {
 
     header.innerHTML = `
 
-        <div class="team-profile">
+<div class="team-profile">
 
-            <div class="profile-left">
+    <div class="team-profile-left">
 
-                <div class="profile-badge">
+        ${renderTeamBadge(selectedTeam, "profile-badge")}
 
-                    ${selectedTeam.name
-                        .charAt(0)
-                        .toUpperCase()}
+        <div class="team-profile-info">
 
-                </div>
+            <h2>${selectedTeam.name}</h2>
 
-                <div>
+            <p>
 
-                    <h2>
-                        ${selectedTeam.name}
-                    </h2>
+                ${selectedTeam.players.length}
+                Player${selectedTeam.players.length !== 1 ? "s" : ""}
 
-                    <p>
-                        ${selectedTeam.players.length}
-                        Players
-                    </p>
+                <span class="profile-dot">•</span>
 
-                </div>
+                Established 2025
 
-            </div>
+            </p>
 
-            <div class="profile-actions">
+        </div>
 
-                <button class="icon-btn">
-                    <i data-lucide="pencil"></i>
-                </button>
+    </div>
 
-                <button class="icon-btn delete">
-                    <i data-lucide="trash-2"></i>
-                </button>
+    <div class="profile-actions">
 
-            </div>
+        <button class="icon-btn">
+            <i data-lucide="pencil"></i>
+        </button>
 
+        <button class="icon-btn delete">
+            <i data-lucide="trash-2"></i>
+        </button>
+
+    </div>
+
+</div>
+
+
+    `;
+
+    rosterList.innerHTML = `
+    <div class="roster-table"></div>
+`;
+
+const rosterTable =
+    rosterList.querySelector(".roster-table");
+
+if(selectedTeam.players.length === 0){
+
+    rosterList.innerHTML = `
+
+        <div class="empty-roster">
+            No Players Yet
         </div>
 
     `;
 
-    rosterList.innerHTML = "";
+    lucide.createIcons();
 
-    if(selectedTeam.players.length === 0){
+    return;
+}
 
-        rosterList.innerHTML = `
+  selectedTeam.players.forEach(player => {
 
-            <div class="empty-roster">
-                No Players Yet
-            </div>
-
-        `;
-
-        lucide.createIcons();
-
-        return;
-    }
-
-  selectedTeam.players.forEach(player=>{
-
-    rosterList.innerHTML += `
+    rosterTable.innerHTML += `
 
         <div class="roster-player">
 
             <div class="player-number">
+
                 ${player.number || "--"}
+
             </div>
 
             <div class="player-name">
+
                 ${player.name}
+
             </div>
 
             <div class="player-positions">
 
                 ${player.positions
-                    .map(position =>
-                        `<span class="position-tag">${position}</span>`
-                    )
+                    .map(position => `
+                        <span class="position-tag">
+                            ${position}
+                        </span>
+                    `)
                     .join("")}
 
             </div>
 
-            <button class="player-edit">
-                <i data-lucide="pencil"></i>
-            </button>
+            <div class="player-actions">
 
-            <button class="player-delete">
-                <i data-lucide="trash-2"></i>
-            </button>
+                <button class="player-edit">
+
+                    <i data-lucide="pencil"></i>
+
+                </button>
+
+                <button class="player-delete">
+
+                    <i data-lucide="trash-2"></i>
+
+                </button>
+
+            </div>
 
         </div>
 
@@ -2228,6 +2253,7 @@ selectedTeam =
     );
 
     renderTeams();
+    renderSelectedTeam();
 
     input.value = "";
 
